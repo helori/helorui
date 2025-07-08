@@ -1,4 +1,4 @@
-export function useDownloader()
+export default function()
 {
     function download(data, filename)
     {

@@ -1,6 +1,6 @@
 import { reactive, ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
-export function useList(readMethod)
+export default function(readMethod)
 {
     const pagination = ref(null);
     const sortFields = ref([]);

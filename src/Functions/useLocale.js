@@ -2,7 +2,7 @@ import { ref, provide } from 'vue'
 import { useI18n } from "vue-i18n"
 import { useRequest } from './useRequest'
 
-export function useLocale()
+export default function()
 {
     const locales = ref(['en', 'fr']);
 

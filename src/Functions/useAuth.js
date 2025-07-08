@@ -1,7 +1,7 @@
 import { ref, provide, onMounted } from 'vue'
 import { useRequest } from './useRequest'
 
-export function useAuth()
+export default function()
 {
     // ------------------------------------------------
     //  Load user

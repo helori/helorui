@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export function useRequest()
+export default function()
 {
     const data = ref({});
     const params = ref({});

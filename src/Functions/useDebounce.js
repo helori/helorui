@@ -1,4 +1,4 @@
-export function useDebounce()
+export default function()
 {
     let debounceTimer = null;
 
