@@ -11,9 +11,9 @@
 
 import { defineComponent, ref, watch, getCurrentInstance } from 'vue'
 import flatPickrComp from 'vue-flatpickr-component'
-import { english } from 'flatpickr/dist/l10n/default.js'
+/*import { english } from 'flatpickr/dist/l10n/default.js'
 import { French } from 'flatpickr/dist/l10n/fr.js'
-import { Spanish } from 'flatpickr/dist/l10n/es.js'
+import { Spanish } from 'flatpickr/dist/l10n/es.js'*/
 import 'flatpickr/dist/flatpickr.css'
 
 export default defineComponent(
@@ -52,7 +52,7 @@ export default defineComponent(
             context.emit('update:date', item.value);
         });
 
-        const datesLocales = ref({
+        /*const datesLocales = ref({
             en: english,
             fr: French,
             es: Spanish,
@@ -60,7 +60,7 @@ export default defineComponent(
 
         datesLocales.value['en'].firstDayOfWeek = 1;
         datesLocales.value['fr'].firstDayOfWeek = 1;
-        datesLocales.value['es'].firstDayOfWeek = 1;
+        datesLocales.value['es'].firstDayOfWeek = 1;*/
 
         /**
          * Using altInput = true is necessary to customize the date display format to the user.
@@ -77,7 +77,7 @@ export default defineComponent(
             dateFormat: 'Y-m-d',
             altFormat: 'd F Y',
             altInput: true,
-            locale: datesLocales.value[app.appContext.config.globalProperties.$i18n.locale],
+            //locale: datesLocales.value[app.appContext.config.globalProperties.$i18n.locale],
             altInputClass: props.classes,
         });
 
