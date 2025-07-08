@@ -88,7 +88,7 @@ export default defineComponent(
 
         return {
             item,
-            datesLocales,
+            //datesLocales,
             fpc,
             config,
         };

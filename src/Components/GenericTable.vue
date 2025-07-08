@@ -39,40 +39,22 @@
                 <tbody>
                     <tr v-for="(item, idx) in pagination.data">
                         <template v-for="field in fields">
-                            <td v-if="!(field.table === false)">
+                            <td v-if="field.table !== false">
 
-                                <div v-if="field.type === 'media'"
-                                    class="w-24 h-12 bg-gray-100">
-                                    <img v-if="item[field.name]"
-                                        class="w-24 h-12 object-contain"
-                                        :src="item[field.name].url + '?' + item[field.name].decache" />
-                                </div>
-
-                                <div v-else-if="field.type === 'medias'"
-                                    class="flex flex-col gap-1 items-center">
-                                    <img v-if="item[field.name].length > 0"
-                                        class="w-24 h-16 object-contain bg-gray-100"
-                                        :src="item[field.name][0].url + '?' + item[field.name][0].decache" />
-                                    <div class="text-center text-xs">
-                                        {{ item[field.name].length }} images
+                                <template v-if="Array.isArray(field.table)">
+                                    <div v-for="tableCellField in field.table"
+                                        :class="tableCellField.class">
+                                        <generic-field
+                                            :field="tableCellField"
+                                            :item="item" />
                                     </div>
-                                </div>
+                                </template>
 
-                                <div v-else-if="field.type === 'boolean'">
-                                    <boolean-icon :value="item[field.name]" />
-                                </div>
-
-                                <div v-else-if="field.type === 'date'">
-                                    {{ $filters.date(item[field.name]) }}
-                                </div>
-
-                                <div v-else-if="field.type === 'select'">
-                                    {{ field.options.find(opt => { return opt.value == item[field.name] }).label }}
-                                </div>
-
-                                <div v-else>
-                                    {{ item[field.name] }}
-                                </div>
+                                <template v-else>
+                                    <generic-field
+                                        :field="field"
+                                        :item="item" />
+                                </template>
 
                             </td>
                         </template>
@@ -164,8 +146,13 @@
 
 import { defineComponent, ref } from 'vue'
 import useTable from '../Functions/useTable.js'
+import GenericField from './GenericField.vue'
 
 export default defineComponent({
+
+    components: {
+        GenericField,
+    },
 
     props: {
         user: {

@@ -36,6 +36,7 @@ import LabelValue from './Components/LabelValue.vue'
 import Editor from './Components/Editor.vue'
 import GenericForm from './Components/GenericForm.vue'
 import GenericTable from './Components/GenericTable.vue'
+import GenericField from './Components/GenericField.vue'
 import GenericSingleton from './Components/GenericSingleton.vue'
 
 let functions = {
@@ -77,6 +78,7 @@ let components = {
     Editor,
     GenericForm,
     GenericTable,
+    GenericField,
     GenericSingleton,
 };
 
