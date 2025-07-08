@@ -1,0 +1,37 @@
+{
+  "name": "helorui",
+  "version": "1.0.0",
+  "description": "Vue3 components library",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helori/helorui.git"
+  },
+  "keywords": [
+    "Vue3",
+    "Tailwindcss",
+    "UI",
+    "Components"
+  ],
+  "author": "Helori Lanos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/helori/helorui/issues"
+  },
+  "homepage": "https://github.com/helori/helorui#readme",
+  "devDependencies": {
+      "autoprefixer": "^10.4.21",
+      "axios": "^1.9.0",
+      "luxon": "^3.6.1",
+      "numeral": "^2.0.6",
+      "postcss": "^8.5.3",
+      "tailwindcss": "^3.4.17",
+      "tinymce": "7.5",
+      "vue": "^3.5.15",
+      "vue-flatpickr-component": "^12.0.0",
+      "vue-i18n": "^11.1.4"
+  }
+}
