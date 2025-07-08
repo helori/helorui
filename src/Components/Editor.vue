@@ -87,8 +87,8 @@
 
 import { defineComponent, ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useDarkMode from '../Functions/useDarkMode'
-import useAsset from '../Functions/useAsset'
+import useDarkMode from '../Functions/useDarkMode.js'
+import useAsset from '../Functions/useAsset.js'
 
 import 'tinymce/tinymce'
 import 'tinymce/skins/ui/oxide/skin.min.css'

@@ -9,8 +9,8 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import Alert from './Alert'
-    import Loader from './Loader'
+    import Alert from './Alert.vue'
+    import Loader from './Loader.vue'
 
     export default defineComponent({
         components: {

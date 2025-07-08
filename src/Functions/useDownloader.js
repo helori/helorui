@@ -9,7 +9,7 @@ export default function()
         document.body.appendChild(link);
         link.click();
     }
-
+    
     return {
         download,
     };

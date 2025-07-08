@@ -1,7 +1,7 @@
 import { ref, watch, onMounted } from 'vue'
-import { useRequest } from './useRequest'
-import { useList } from './useList'
 import { useI18n } from 'vue-i18n'
+import useRequest from './useRequest.js'
+import useList from './useList.js'
 
 export default function(fields, endpoint, orderBy, orderDir)
 {

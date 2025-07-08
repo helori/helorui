@@ -41,9 +41,9 @@
 
 <script>
     import { defineComponent, ref } from 'vue'
-    import { useRequest } from '../Functions/useRequest'
-    import RequestError from './RequestError'
-    import RequestButton from './RequestButton'
+    import useRequest from '../Functions/useRequest.js'
+    import RequestError from './RequestError.vue'
+    import RequestButton from './RequestButton.vue'
 
     export default defineComponent({
 

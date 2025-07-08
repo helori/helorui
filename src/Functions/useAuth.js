@@ -1,5 +1,5 @@
 import { ref, provide, onMounted } from 'vue'
-import { useRequest } from './useRequest'
+import useRequest from './useRequest.js'
 
 export default function()
 {

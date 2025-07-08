@@ -163,7 +163,7 @@
 <script>
 
 import { defineComponent, ref } from 'vue'
-import useTable from '../Functions/useTable'
+import useTable from '../Functions/useTable.js'
 
 export default defineComponent({
 

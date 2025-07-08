@@ -38,7 +38,7 @@
 
 <script>
     import { defineComponent, ref } from 'vue'
-    import ListPagination from './ListPagination'
+    import ListPagination from './ListPagination.vue'
 
     export default defineComponent({
         components: {

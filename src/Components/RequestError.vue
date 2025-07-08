@@ -42,7 +42,7 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import Alert from './Alert'
+    import Alert from './Alert.vue'
 
     export default defineComponent({
         components: {

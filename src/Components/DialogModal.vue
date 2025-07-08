@@ -16,7 +16,7 @@
 
 <script>
     import { defineComponent, ref } from 'vue'
-    import Modal from './Modal'
+    import Modal from './Modal.vue'
 
     export default defineComponent({
 

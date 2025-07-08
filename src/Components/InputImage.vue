@@ -34,8 +34,8 @@
 <script>
 
 import { defineComponent, ref, watch } from 'vue'
-import InputImagePreview from './InputImagePreview'
-import InputImageFilePreview from './InputImageFilePreview'
+import InputImagePreview from './InputImagePreview.vue'
+import InputImageFilePreview from './InputImageFilePreview.vue'
 
 export default defineComponent(
 {

@@ -31,7 +31,7 @@
 <script>
 
 import { defineComponent, ref, onMounted } from 'vue'
-import { useRequest } from '../Functions/useRequest'
+import useRequest from '../Functions/useRequest.js'
 
 export default defineComponent({
 

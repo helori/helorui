@@ -64,8 +64,8 @@
 <script>
 
 import { defineComponent, ref, onMounted, watch } from 'vue'
-import { useRequest } from '../Functions/useRequest'
-import { useDownloader } from '../Functions/useDownloader'
+import useRequest from '../Functions/useRequest.js'
+import useDownloader from '../Functions/useDownloader.js'
 
 export default defineComponent(
 {

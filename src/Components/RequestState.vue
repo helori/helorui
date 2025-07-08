@@ -7,8 +7,8 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import RequestStatus from './RequestStatus'
-    import RequestError from './RequestError'
+    import RequestStatus from './RequestStatus.vue'
+    import RequestError from './RequestError.vue'
 
     export default defineComponent({
 
