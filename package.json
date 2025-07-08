@@ -1,11 +1,13 @@
 {
   "name": "helorui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue3 components library",
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.esm.js",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
