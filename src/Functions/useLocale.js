@@ -1,10 +1,10 @@
-import { ref, provide } from 'vue'
+import { ref, provide, onMounted } from 'vue'
 import { useI18n } from "vue-i18n"
 import useRequest from './useRequest.js'
 
 export default function()
 {
-    const locales = ref(['en', 'fr']);
+    const locales = ref(['fr']);
 
     const { locale } = useI18n({ useScope: 'global' })
 
@@ -15,6 +15,13 @@ export default function()
         data,
     } = useRequest();
 
+    onMounted(function(){
+        send('get', '/api/locales').then(function(r)
+        {
+            locales.value = r.data;
+        });
+    });
+
     function setLocale(l)
     {
         data.value = { locale: l };
@@ -23,9 +30,6 @@ export default function()
             locale.value = r.data;
             backendLocale.value = r.data;
             window.laravelLocale = r.data;
-
-            //console.log('Backend locale : ' + locale.value);
-            //console.log('Frontend locale : ' + backendLocale.value);
 
             // window.location.reload();
             // To avoid reloading the whole page,
@@ -37,6 +41,7 @@ export default function()
 
     provide('setLocale', setLocale);
     provide('locale', locale);
+    provide('locales', locales);
 
     return {
         locales,
