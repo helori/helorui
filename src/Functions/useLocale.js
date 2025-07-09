@@ -4,7 +4,7 @@ import useRequest from './useRequest.js'
 
 export default function()
 {
-    const locales = ref(['fr']);
+    const locales = ref([]);
 
     const { locale } = useI18n({ useScope: 'global' })
 
