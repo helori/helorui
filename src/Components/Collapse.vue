@@ -1,64 +1,88 @@
 <template>
     <div>
-        <div class="flex items-center gap-2 cursor-pointer"
-            :class="headerClasses"
+        
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!-- Heading -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <div :class="headingClasses"
             @click="toggle">
-            <div class="shrink-0">
-                <svg class="transition-all size-6" :class="open ? 'rotate-90' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            <div class="transform origin-center transition"
+                :class="{
+                    'rotate-90': item,
+                }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="h-4 w-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </div>
-            <div class="flex-grow">
-                <slot name="header"></slot>
-            </div>
+            <slot name="heading"></slot>
         </div>
 
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!-- Content -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <div :class="contentClasses"
-            v-show="open">
-            <slot name="content" />
-            <div v-if="!$slots.content"
-                class="text-xs text-gray-500 italic">
-                {{ $t('Empty') }}
-            </div>
+            v-show="item">
+            <slot name="content"></slot>
         </div>
+
     </div>
 </template>
 
 <script>
-    import { defineComponent, ref } from 'vue'
+    import { defineComponent, ref, watch } from 'vue'
 
     export default defineComponent({
+
+        emits: [
+            'update:opened',
+            'closed',
+            'opened',
+        ],
+
         props: {
-            headerClasses: {
+            opened: {
+                type: Boolean,
                 required: false,
-                default: '',
+                default: false,
+            },
+            headingClasses: {
+                required: false,
+                default: '-mt-px px-4 py-2 flex items-center gap-2 cursor-pointer bg-gray-300 hover:bg-gray-200 border-t border-b border-gray-400 text-sm font-semibold dark:bg-gray-900 dark:border-gray-900 dark:text-white',
             },
             contentClasses: {
                 required: false,
-                default: ['px-2, py-2'],
-            },
-            disabled: {
-                type: Boolean,
-                default: false,
-                required: false,
+                default: 'px-4 py-3 bg-gray-100 dark:bg-gray-600',
             },
         },
 
-        setup(props, { slots })
+        setup(props, { emit })
         {
-            const open = ref(false);
-
+            const item = ref(props.opened);
+            
             function toggle()
             {
-                if(!props.disabled){
-                    open.value = !open.value;
+                setOpened(!item.value);
+            }
+            
+            watch(() => props.opened, opened => {
+                setOpened(opened);
+            })
+
+            function setOpened(opened)
+            {
+                if(item.value !== opened)
+                {
+                    item.value = opened;
+                    emit('update:opened', item.value);
+                    emit(item.value ? 'opened' : 'closed', item.value);
                 }
             }
 
             return {
-                open,
+                item,
                 toggle,
-            }
+            };
         }
     })
 </script>
