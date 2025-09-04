@@ -39,6 +39,7 @@
             'closed',
             'opened',
         ],
+        
 
         props: {
             opened: {
