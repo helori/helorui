@@ -2,9 +2,9 @@
     <div>
         
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <!-- Heading -->
+        <!-- Header -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <div :class="headingClasses"
+        <div :class="headerClasses"
             @click="toggle">
             <div class="transform origin-center transition"
                 :class="{
@@ -15,7 +15,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </div>
-            <slot name="heading"></slot>
+            <slot name="header"></slot>
         </div>
 
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -46,7 +46,7 @@
                 required: false,
                 default: false,
             },
-            headingClasses: {
+            headerClasses: {
                 required: false,
                 default: '-mt-px px-4 py-2 flex items-center gap-2 cursor-pointer bg-gray-300 hover:bg-gray-200 border-t border-b border-gray-400 text-sm font-semibold dark:bg-gray-900 dark:border-gray-900 dark:text-white',
             },
