@@ -1,5 +1,5 @@
 <template>
-    <span class="document-input">
+    <span class="inline-block relative">
 
         <input
             ref="fileInput"
@@ -44,7 +44,7 @@ export default defineComponent(
             type: String,
             required: false,
             default: '*',
-        }
+        },
     },
 
     emits: [
