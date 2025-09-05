@@ -12,6 +12,7 @@ import filters from './filters.js'
 
 import BooleanIcon from './Components/BooleanIcon.vue'
 import Alert from './Components/Alert.vue'
+import Checkbox from './Components/Checkbox.vue'
 import DialogForm from './Components/DialogForm.vue'
 import DialogModal from './Components/DialogModal.vue'
 import Drawer from './Components/Drawer.vue'
@@ -27,6 +28,8 @@ import RequestError from './Components/RequestError.vue'
 import RequestState from './Components/RequestState.vue'
 import RequestStatus from './Components/RequestStatus.vue'
 import TableSortLabel from './Components/TableSortLabel.vue'
+import InputCheckbox from './Components/InputCheckbox.vue'
+import InputCheckboxMultiple from './Components/InputCheckboxMultiple.vue'
 import InputDate from './Components/InputDate.vue'
 import InputFile from './Components/InputFile.vue'
 import InputImage from './Components/InputImage.vue'
@@ -54,6 +57,7 @@ let functions = {
 let components = {
     BooleanIcon,
     Alert,
+    Checkbox,
     DialogForm,
     DialogModal,
     Drawer,
@@ -69,6 +73,8 @@ let components = {
     RequestState,
     RequestStatus,
     TableSortLabel,
+    InputCheckbox,
+    InputCheckboxMultiple,
     InputDate,
     InputFile,
     InputImage,
