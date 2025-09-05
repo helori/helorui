@@ -20,6 +20,12 @@
                 <template v-else-if="type === 'boolean'">
                     {{ $filters.boolean(value) }}
                 </template>
+                <template v-else-if="type === 'siren'">
+                    {{ $filters.siren(value) }}
+                </template>
+                <template v-else-if="type === 'siret'">
+                    {{ $filters.siret(value) }}
+                </template>
                 <template v-else-if="type === 'email'">
                     <a :href="'mailto:' + value" target="_blank" class="text-primary underline">{{ value }}</a>
                 </template>

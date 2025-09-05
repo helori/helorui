@@ -32,6 +32,7 @@ import InputCheckbox from './Components/InputCheckbox.vue'
 import InputCheckboxMultiple from './Components/InputCheckboxMultiple.vue'
 import InputDate from './Components/InputDate.vue'
 import InputFile from './Components/InputFile.vue'
+import InputGroup from './Components/InputGroup.vue'
 import InputImage from './Components/InputImage.vue'
 import InputImages from './Components/InputImages.vue'
 import InputMultiselect from './Components/InputMultiselect.vue'
@@ -77,6 +78,7 @@ let components = {
     InputCheckboxMultiple,
     InputDate,
     InputFile,
+    InputGroup,
     InputImage,
     InputImages,
     InputMultiselect,

@@ -1,3 +1,18 @@
+<style scoped>
+.pagination-link{
+    @apply block px-3 py-2 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600;
+}
+.pagination-link.disabled{
+    @apply text-gray-500 hover:bg-white dark:hover:bg-gray-800;
+}
+.pagination-link:not(.disabled){
+    @apply cursor-pointer;
+}
+.pagination-link.active{
+    @apply bg-primary-900 dark:bg-primary-600 text-white border border-primary-900 dark:border-primary-300;
+}
+</style>
+
 <template>
     <nav aria-label="Page navigation"
         class="my-0"
@@ -15,7 +30,7 @@
 
             <li class="block" v-else>
                 <a class="pagination-link rounded-l-md"
-                    @click="setPage(pagination.current_page - 1)"
+                    @click="$event.preventDefault(); setPage(pagination.current_page - 1)"
                     aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -24,12 +39,13 @@
             <li class="block"
                 v-if="pagination.current_page >= 3">
                 <a class="pagination-link"
-                    @click="setPage(1)">1</a>
+                    @click="$event.preventDefault(); setPage(1)">1</a>
             </li>
 
             <li class="block"
                 v-if="pagination.current_page >= 4">
-                <a class="pagination-link disabled">...</a>
+                <a class="pagination-link disabled"
+                    @click="$event.preventDefault()">...</a>
             </li>
 
             <li class="block"
@@ -46,7 +62,8 @@
 
             <li class="block"
                 v-if="pagination.current_page <= pagination.last_page - 3">
-                <a class="pagination-link disabled">...</a>
+                <a class="pagination-link disabled"
+                    @click="$event.preventDefault()">...</a>
             </li>
 
             <li class="block"

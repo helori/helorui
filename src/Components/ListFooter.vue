@@ -21,7 +21,7 @@
 
         <select
             v-if="showLimit"
-            class="hidden sm:block input w-full sm:w-auto text-sm"
+            class="hidden sm:block input w-full sm:w-auto text-sm sm:text-md"
             v-model.number="limitValue"
             @change="$emit('update:limit', limitValue)">
             <option :value="5">5 {{ $t('per page') }}</option>
