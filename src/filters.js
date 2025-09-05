@@ -31,11 +31,11 @@ function dateLocalized(value, inputFormat)
     return value ? DateTime.fromFormat(value, inputFormat).toFormat('dd MMM yyyy') : '';
 }
 
-function duration(value, unit)
+function duration(inputSeconds)
 {
-    if(value || (value === 0))
+    if(inputSeconds || (inputSeconds === 0))
     {
-        let remainingSec = value;
+        let remainingSec = inputSeconds;
 
         let hours = parseInt(Math.floor(remainingSec / 3600));
         remainingSec = remainingSec - hours * 3600;
@@ -49,7 +49,42 @@ function duration(value, unit)
 
         return hours + ':' + minutes + ':' + seconds;
     }
-    return value;
+    return inputSeconds;
+}
+
+function durationHuman(inputSeconds)
+{
+    if(inputSeconds || (inputSeconds === 0))
+    {
+        let remainingSec = inputSeconds;
+
+        let hours = parseInt(Math.floor(remainingSec / 3600));
+        remainingSec = remainingSec - hours * 3600;
+        let minutes = parseInt(Math.floor(remainingSec / 60));
+        remainingSec = remainingSec - minutes * 60;
+        let seconds = remainingSec;
+
+        let parts = [];
+        if(hours > 0) { parts.push(hours + ' h'); }
+        if(minutes > 0) { parts.push(minutes + ' min'); }
+        if(seconds > 0) { parts.push(seconds + ' sec'); }
+        return parts.join(' ');
+    }
+    return inputSeconds;
+}
+
+function age(value, inputFormat)
+{
+    if(!inputFormat){
+        inputFormat = "YYYY-MM-DD HH:mm:ss";
+    }
+    if(value){
+        var birthday = DateTime.fromFormat(value, inputFormat);
+        var diffMs = Date.now() - birthday.toJSDate();
+        return diffMs / (1000 * 60 * 60 * 24 * 365.25);
+    }else{
+        return '';
+    }
 }
 
 function number(value, decimals)
@@ -68,6 +103,49 @@ function number(value, decimals)
         value = parseFloat(value);
     }
     return numeral(value).format(format);
+}
+
+function surface(value, decimals)
+{
+    if(value === null || value === '' || typeof value === 'undefined'){
+        return '';
+    }
+    if(typeof value === 'string'){
+        value = parseFloat(value);
+    }
+    let unit = 'm²';
+    if(value > 100000000){
+        value /= 1000000;
+        unit = 'km²';
+    }
+    else if(value > 10000){
+        value /= 10000;
+        unit = 'Ha';
+    }
+
+    var format = '0,0';
+    if(decimals > 0){
+        format += '.';
+        for(var i=0; i<parseInt(decimals); ++i){
+            format += '0';
+        }
+    }
+
+    value = numeral(value).format(format);
+    
+    return value + ' ' + unit;
+}
+
+function phone(string) {
+    if(typeof string === 'string' && string && string.length >= 12){
+        return string.slice(0, 3) 
+            + ' ' + string.slice(3, 4) 
+            + ' ' + string.slice(4, 6) 
+            + ' ' + string.slice(6, 8) 
+            + ' ' + string.slice(8, 10) 
+            + ' ' + string.slice(10);
+    }
+    return string;
 }
 
 function ucfirst(string) {
@@ -153,11 +231,25 @@ function octets(value, decimals) {
     return numeral(val).format(format) + ' ' + units[unitIdx];
 }
 
+function boolean(value) {
+    if(value === '1' || value === 1 || value === 'true' || value === true){
+        return 'Oui';
+    }else if(value === '0' || value === 0 || value === 'false' || value === false){
+        return 'Non';
+    }else{
+        return '';
+    }
+}
+
 export default {
     date,
     dateLocalized,
     duration,
+    durationHuman,
+    age,
     number,
+    surface,
+    phone,
     ucfirst,
     ucwords,
     strtoupper,
@@ -167,4 +259,5 @@ export default {
     coma2br,
     nl2br,
     octets,
+    boolean,
 }
