@@ -42,6 +42,12 @@ import GenericForm from './Components/GenericForm.vue'
 import GenericTable from './Components/GenericTable.vue'
 import GenericField from './Components/GenericField.vue'
 import GenericSingleton from './Components/GenericSingleton.vue'
+import InputDateRange from './Components/InputDateRange.vue'
+import InputMinMax from './Components/InputMinMax.vue'
+import InputMonth from './Components/InputMonth.vue'
+import InputPeriodMonth from './Components/InputPeriodMonth.vue'
+import InputSelectRange from './Components/InputSelectRange.vue'
+import Tabs from './Components/Tabs.vue'
 
 let functions = {
     useAsset,
@@ -56,6 +62,12 @@ let functions = {
 };
 
 let components = {
+    InputDateRange,
+    InputMinMax,
+    InputMonth,
+    InputPeriodMonth,
+    InputSelectRange,
+    Tabs,
     BooleanIcon,
     Alert,
     Checkbox,
