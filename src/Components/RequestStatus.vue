@@ -24,7 +24,7 @@
             message: {
                 type: String,
                 required: false,
-                default: $t("Loading..."),
+                default: "",
             },
             iconClasses: {
                 default: "size-5 text-blue-900 dark:text-blue-200",
