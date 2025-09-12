@@ -239,6 +239,24 @@ function boolean(value) {
     }
 }
 
+function siren(string) {
+    if(string){
+        string = string.replace(/\s/g,'');
+        return string.slice(0, 3) + ' ' + string.slice(3, 6) + ' ' + string.slice(6, 9);
+    }else{
+        return '';
+    }
+}
+
+function siret(string) {
+    if(string){
+        string = string.replace(/\s/g,'');
+        return string.slice(0, 3) + ' ' + string.slice(3, 6) + ' ' + string.slice(6, 9) + ' ' + string.slice(9);
+    }else{
+        return '';
+    }
+}
+
 export default {
     date,
     dateLocalized,
@@ -258,4 +276,6 @@ export default {
     nl2br,
     octets,
     boolean,
+    siren,
+    siret,
 }
