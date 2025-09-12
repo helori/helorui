@@ -15,8 +15,6 @@ function date(value, outputFormat, inputFormat)
         luxonDate = DateTime.fromFormat(value, inputFormat);
     }
 
-    console.log(value, outputFormat, inputFormat, luxonDate);
-
     return luxonDate.toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy');
 }
 
