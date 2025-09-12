@@ -28,7 +28,7 @@
             <table>
                 <thead>
                     <tr>
-                        <template v-for="field in fields">
+                        <template v-for="field in fields.filter(f => f.table !== false)">
                             <th v-if="!(field.table === false)">
                                 {{ field.label }}
                             </th>
@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, idx) in pagination.data">
-                        <template v-for="field in fields">
+                        <template v-for="field in fields.filter(f => f.table !== false)">
                             <td v-if="field.table !== false">
 
                                 <template v-if="Array.isArray(field.table)">
@@ -105,7 +105,7 @@
             :callback="create">
             <template #content>
                 <generic-form
-                    :fields="fields"
+                    :fields="fields.filter(f => f.editable !== false)"
                     v-model:model="createDialog.data"
                     v-model:files="createFiles">
                 </generic-form>
@@ -120,7 +120,7 @@
             :callback="update">
             <template #content>
                 <generic-form
-                    :fields="fields"
+                    :fields="fields.filter(f => f.editable !== false)"
                     v-model:model="updateDialog.data"
                     v-model:files="updateFiles">
                 </generic-form>
@@ -158,7 +158,10 @@ export default defineComponent({
         user: {
             required: true,
         },
-        resource: {
+        fields: {
+            required: true,
+        },
+        endpoint: {
             type: String,
             required: true,
         },
@@ -196,12 +199,13 @@ export default defineComponent({
 
     setup(props)
     {
-        let resource = window.cms.resources.find(function(r){
-            return r.name == props.resource;
-        })
+        const fields = ref(props.fields);
 
-        const fields = ref(resource.fields);
-        const table = useTable(fields, '/api/admin/resource/' + props.resource, props.orderBy, props.orderDir);
+        const table = useTable(
+            fields,
+            props.endpoint,
+            props.orderBy,
+            props.orderDir);
 
         return {
             fields,
