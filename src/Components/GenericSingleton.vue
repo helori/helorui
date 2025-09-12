@@ -39,7 +39,10 @@ export default defineComponent({
         user: {
             required: true,
         },
-        resource: {
+        fields: {
+            required: true,
+        },
+        endpoint: {
             type: String,
             required: true,
         },
@@ -52,13 +55,8 @@ export default defineComponent({
 
     setup(props)
     {
-        let resource = window.cms.resources.find(function(r){
-            return r.name == props.resource;
-        })
-
-        const fields = ref(resource.fields);
-
-        const endpoint = '/api/admin/resource/' + props.resource;
+        const fields = ref(props.fields);
+        const endpoint = props.endpoint;
 
         // ----------------------------------------------------
         //  read
