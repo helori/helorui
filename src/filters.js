@@ -2,22 +2,22 @@ import { useI18n } from "vue-i18n"
 import { DateTime } from 'luxon'
 import numeral from 'numeral'
 
-function date(value, format, inputFormat)
+function date(value, outputFormat, inputFormat)
 {
-    //format = format ? format : 'dd/MM/yyyy';
-    format = format ? format : 'yyyy-MM-dd';
-    //format = format ? format : 'dd MMMM yyyy';
-    inputFormat = inputFormat ? inputFormat : 'yyyy-MM-dd HH:mm:ss';
+    var luxonDate = value;
 
-    var formattedDate = value ? DateTime.fromFormat(value, inputFormat).toFormat(format) : '';
+    if(!inputFormat){
+        // https://moment.github.io/luxon/#/parsing?id=sql
+        luxonDate = DateTime.fromSQL(value);
+    }else{
+        // https://moment.github.io/luxon/#/parsing?id=fromformat
+        // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', ''yyyy-MM-dd HH:mm:ss'');
+        luxonDate = DateTime.fromFormat(value, inputFormat);
+    }
 
-    // Use this to control the date format.
-    // The date can then be translated using {{ $t($filters.date(...)) }}
-    return formattedDate;
+    console.log(value, outputFormat, inputFormat, luxonDate);
 
-    // Use this to translate the date automatically :
-    //const { d } = useI18n({ useScope: 'global' })
-    //return formattedDate ? d($formattedDate, 'short') : '';
+    return luxonDate.toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy');
 }
 
 function dateLocalized(value, inputFormat)
