@@ -79,7 +79,7 @@ function age(value, inputFormat)
     if(value){
         var birthday = DateTime.fromFormat(value, inputFormat);
         var diffMs = Date.now() - birthday.toJSDate();
-        return diffMs / (1000 * 60 * 60 * 24 * 365.25);
+        return (string) Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
     }else{
         return '';
     }
