@@ -77,7 +77,7 @@ function age(value, inputFormat = 'yyyy-MM-dd HH:mm:ss')
         var birthday = DateTime.fromFormat(value, inputFormat);
         var interval = Interval.fromDateTimes(birthday, DateTime.now());
         var years = interval.toDuration('years').toObject().years;
-        return (string) Math.floor(years);
+        return Math.floor(years);
     }else{
         return '';
     }
@@ -128,17 +128,17 @@ function surface(value, decimals)
     }
 
     value = numeral(value).format(format);
-    
+
     return value + ' ' + unit;
 }
 
 function phone(string) {
     if(typeof string === 'string' && string && string.length >= 12){
-        return string.slice(0, 3) 
-            + ' ' + string.slice(3, 4) 
-            + ' ' + string.slice(4, 6) 
-            + ' ' + string.slice(6, 8) 
-            + ' ' + string.slice(8, 10) 
+        return string.slice(0, 3)
+            + ' ' + string.slice(3, 4)
+            + ' ' + string.slice(4, 6)
+            + ' ' + string.slice(6, 8)
+            + ' ' + string.slice(8, 10)
             + ' ' + string.slice(10);
     }
     return string;
