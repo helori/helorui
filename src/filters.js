@@ -1,5 +1,5 @@
 import { useI18n } from "vue-i18n"
-import { DateTime } from 'luxon'
+import { DateTime, Interval } from 'luxon'
 import numeral from 'numeral'
 
 function date(value, outputFormat, inputFormat)
@@ -11,7 +11,7 @@ function date(value, outputFormat, inputFormat)
         luxonDate = DateTime.fromSQL(value);
     }else{
         // https://moment.github.io/luxon/#/parsing?id=fromformat
-        // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', ''yyyy-MM-dd HH:mm:ss'');
+        // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', 'yyyy-MM-dd HH:mm:ss');
         luxonDate = DateTime.fromFormat(value, inputFormat);
     }
 
@@ -71,15 +71,13 @@ function durationHuman(inputSeconds)
     return inputSeconds;
 }
 
-function age(value, inputFormat)
+function age(value, inputFormat = 'yyyy-MM-dd HH:mm:ss')
 {
-    if(!inputFormat){
-        inputFormat = "YYYY-MM-DD HH:mm:ss";
-    }
     if(value){
         var birthday = DateTime.fromFormat(value, inputFormat);
-        var diffMs = Date.now() - birthday.toJSDate();
-        return (string) Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+        var interval = Interval.fromDateTimes(birthday, DateTime.now());
+        var years = interval.toDuration('years').toObject().years;
+        return (string) Math.floor(years);
     }else{
         return '';
     }
