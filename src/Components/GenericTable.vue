@@ -195,6 +195,11 @@ export default defineComponent({
             required: false,
             default: true,
         },
+        storageKey: {
+            type: String,
+            required: false,
+            default: null,
+        },
     },
 
     setup(props)
@@ -205,7 +210,9 @@ export default defineComponent({
             fields,
             props.endpoint,
             props.orderBy,
-            props.orderDir);
+            props.orderDir,
+            props.storageKey
+        );
 
         return {
             fields,

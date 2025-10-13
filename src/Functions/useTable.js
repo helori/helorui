@@ -1,50 +1,21 @@
 import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useRequest from './useRequest.js'
 import useList from './useList.js'
 
-export default function(fields, endpoint, orderBy, orderDir)
+export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
 {
     const {
         pagination,
         readCommonParams,
-        locked,
         filters,
-    } = useList(read);
-
-    locked.value = true;
-    readCommonParams.limit = 10;
-    readCommonParams.orderBy = orderBy ?? 'created_at';
-    readCommonParams.orderDir = orderDir ?? 'desc';
-    locked.value = false;
-
-    const {
-        send: readFunc,
-        params: readParams,
-        error: readError,
-        status: readStatus,
-    } = useRequest();
-
-    function read()
-    {
-        pagination.value = null;
-
-        readParams.value = {
-            page: readCommonParams.page,
-            search: readCommonParams.search,
-            order_by: readCommonParams.orderBy,
-            order_dir: readCommonParams.orderDir,
-            limit: readCommonParams.limit,
-        };
-
-        return readFunc('GET', endpoint).then(r => {
-            pagination.value = r.data;
-        });
-    }
-
-    onMounted(function(){
-        read();
-    })
+        read,
+        readStatus,
+        readError,
+    } = useList(endpoint, {
+        orderBy: orderBy ?? 'created_at',
+        orderDir: orderDir ?? 'desc',
+        limit: 10,
+    });
 
     const { locale } = useI18n({ useScope: 'global' })
 
@@ -170,9 +141,7 @@ export default function(fields, endpoint, orderBy, orderDir)
     return {
         pagination,
         readCommonParams,
-        locked,
         filters,
-
         read,
         readStatus,
         readError,
