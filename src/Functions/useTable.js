@@ -15,7 +15,7 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
         orderBy: orderBy ?? 'created_at',
         orderDir: orderDir ?? 'desc',
         limit: 10,
-    });
+    }, {}, storageKey);
 
     const { locale } = useI18n({ useScope: 'global' })
 
