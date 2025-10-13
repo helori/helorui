@@ -1,5 +1,5 @@
 import { reactive, ref, watchEffect, watch, onMounted, onBeforeUnmount, toRaw, nextTick } from 'vue'
-import { useRequest } from './useRequest'
+import useRequest from './useRequest.js'
 
 export function useList(endpointValue, defaultParams = {}, defaultFilters = {}, storageKeyValue = null)
 {
