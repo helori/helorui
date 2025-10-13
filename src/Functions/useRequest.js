@@ -7,6 +7,7 @@ export default function()
     const promise = ref(null);
     const status = ref(null);
     const error = ref(null);
+    const abortController = ref(null);
 
     function send(method, url, config, formDataConfig)
     {
@@ -56,6 +57,9 @@ export default function()
             requestConfig.data = formData;
         }
 
+        abortController.value = new AbortController();
+        requestConfig.signal = abortController.value.signal;
+
         return promise.value = axios.request(requestConfig).then(r => {
 
             status.value = 'success';
@@ -96,5 +100,6 @@ export default function()
         status,
         error,
         send,
+        abortController,
     };
 }
