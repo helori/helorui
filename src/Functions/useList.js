@@ -97,6 +97,11 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
         });
     }
 
+    function setEndpoint(newEndpoint)
+    {
+        endpoint = newEndpoint;
+    }
+
     // Do not watch changes before next tick (to avoid page reset on initFromStorage)
     nextTick().then(() => {
         watch(() => [
@@ -143,5 +148,6 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
         read,
         readError,
         readStatus,
+        setEndpoint,
     };
 }
