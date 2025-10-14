@@ -78,6 +78,10 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
     function read()
     {
+        if(!endpoint){
+            return Promise.resolve(null);
+        }
+
         pagination.value = null;
 
         readParams.value = {
