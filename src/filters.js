@@ -2,12 +2,28 @@ import { useI18n } from "vue-i18n"
 import { DateTime, Interval } from 'luxon'
 import numeral from 'numeral'
 
+function dateFromSeconds(value, outputFormat)
+{
+    return value ? DateTime.fromSeconds(value).toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy') : '';
+}
+
+function dateFromMillis(value, outputFormat)
+{
+    return value ? DateTime.fromMillis(value).toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy') : '';
+}
+
+function dateFromIso(value, outputFormat)
+{
+    return value ? DateTime.fromISO(value).toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy') : '';
+}
+
+function dateFromSql(value, outputFormat)
+{
+    return value ? DateTime.fromSQL(value).toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy') : '';
+}
+
 function date(value, outputFormat, inputFormat)
 {
-    if(!value){
-        return value;
-    }
-
     var luxonDate = value;
 
     if(inputFormat)
@@ -16,15 +32,22 @@ function date(value, outputFormat, inputFormat)
         // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', 'yyyy-MM-dd HH:mm:ss');
         luxonDate = DateTime.fromFormat(value, inputFormat);
     }
-    else if((typeof value === 'string') && (value.indexOf('T') !== -1))
+    else if(typeof value === 'string')
     {
-        // https://moment.github.io/luxon/#/parsing?id=iso-8601
-        luxonDate = DateTime.fromISO(value);
+        if(value.indexOf('T') !== -1)
+        {
+            // https://moment.github.io/luxon/#/parsing?id=iso-8601
+            luxonDate = DateTime.fromISO(value);
+        }
+        else
+        {
+            // https://moment.github.io/luxon/#/parsing?id=sql
+            luxonDate = DateTime.fromSQL(value);
+        }
     }
-    else
+    else if(Number.isInteger(value))
     {
-        // https://moment.github.io/luxon/#/parsing?id=sql
-        luxonDate = DateTime.fromSQL(value);
+        luxonDate = DateTime.fromSeconds(value);
     }
 
     return luxonDate.toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy');
@@ -272,6 +295,10 @@ function siret(string) {
 }
 
 export default {
+    dateFromSeconds,
+    dateFromMillis,
+    dateFromIso,
+    dateFromSql,
     date,
     dateLocalized,
     duration,
