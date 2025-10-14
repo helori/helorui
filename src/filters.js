@@ -10,13 +10,21 @@ function date(value, outputFormat, inputFormat)
 
     var luxonDate = value;
 
-    if(!inputFormat){
-        // https://moment.github.io/luxon/#/parsing?id=sql
-        luxonDate = DateTime.fromSQL(value);
-    }else{
+    if(inputFormat)
+    {
         // https://moment.github.io/luxon/#/parsing?id=fromformat
         // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', 'yyyy-MM-dd HH:mm:ss');
         luxonDate = DateTime.fromFormat(value, inputFormat);
+    }
+    else if(value.indexOf('T') !== -1)
+    {
+        // https://moment.github.io/luxon/#/parsing?id=iso-8601
+        luxonDate = DateTime.fromISO(value);
+    }
+    else
+    {
+        // https://moment.github.io/luxon/#/parsing?id=sql
+        luxonDate = DateTime.fromSQL(value);
     }
 
     return luxonDate.toFormat(outputFormat ? outputFormat : 'dd/MM/yyyy');
@@ -27,7 +35,7 @@ function dateLocalized(value, inputFormat)
     if(!value){
         return value;
     }
-    
+
     var formattedDate = date(value, 'yyyy-MM-dd', inputFormat);
 
     const { d } = useI18n({ useScope: 'global' })
