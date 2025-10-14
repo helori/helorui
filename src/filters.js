@@ -4,6 +4,10 @@ import numeral from 'numeral'
 
 function date(value, outputFormat, inputFormat)
 {
+    if(!value){
+        return value;
+    }
+
     var luxonDate = value;
 
     if(!inputFormat){
@@ -20,6 +24,10 @@ function date(value, outputFormat, inputFormat)
 
 function dateLocalized(value, inputFormat)
 {
+    if(!value){
+        return value;
+    }
+    
     var formattedDate = date(value, 'yyyy-MM-dd', inputFormat);
 
     const { d } = useI18n({ useScope: 'global' })
