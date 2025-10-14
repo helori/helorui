@@ -16,7 +16,7 @@ function date(value, outputFormat, inputFormat)
         // e.g. var date = DateTime.fromFormat('2012-03-31 12:59:25', 'yyyy-MM-dd HH:mm:ss');
         luxonDate = DateTime.fromFormat(value, inputFormat);
     }
-    else if(value.indexOf('T') !== -1)
+    else if((typeof value === 'string') && (value.indexOf('T') !== -1))
     {
         // https://moment.github.io/luxon/#/parsing?id=iso-8601
         luxonDate = DateTime.fromISO(value);
