@@ -138,6 +138,14 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
         });
     }
 
+    function isFieldEditable(field, item)
+    {
+        if(typeof field.editable === 'function'){
+            return field.editable(item);
+        }
+        return field.editable !== false;
+    }
+
     return {
         pagination,
         readCommonParams,
@@ -159,5 +167,7 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
         destroy,
         destroyDialog,
         openDestroy,
+
+        isFieldEditable,
     };
 }

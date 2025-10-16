@@ -76,6 +76,13 @@
             <template v-else-if="field.type === 'date'">
                 <input-date
                     class="input w-full"
+                    v-model:date="item[field.name]"
+                    @update:date="update" />
+            </template>
+
+            <template v-else-if="field.type === 'time'">
+                <input type="time"
+                    class="input w-full"
                     v-model="item[field.name]"
                     @change="update" />
             </template>

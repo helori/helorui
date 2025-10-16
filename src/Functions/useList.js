@@ -12,8 +12,8 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
     const readCommonParams = reactive(Object.assign({}, {
         page: 1,
         search: null,
-        orderBy: 'created_at',
-        orderDir: 'desc',
+        orderBy: 'id',
+        orderDir: 'asc',
         limit: 10,
     }, defaultParams));
 
