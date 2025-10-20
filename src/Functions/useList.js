@@ -19,6 +19,11 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
     const filters = reactive(Object.assign({}, {}, defaultFilters));
 
+    function resetFilters()
+    {
+        filters = Object.assign({}, {}, defaultFilters);
+    }
+
     function saveToStorage(){
         if(storageKey){
             let data = {
@@ -153,5 +158,6 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
         readError,
         readStatus,
         setEndpoint,
+        resetFilters,
     };
 }
