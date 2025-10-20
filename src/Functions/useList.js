@@ -21,6 +21,14 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
     function resetFilters()
     {
+        Object.assign(readCommonParams, {
+            page: 1,
+            search: null,
+            orderBy: 'id',
+            orderDir: 'asc',
+            limit: 10,
+        }, defaultParams);
+        
         Object.assign(filters, defaultFilters);
     }
 
