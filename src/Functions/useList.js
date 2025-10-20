@@ -21,7 +21,7 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
     function resetFilters()
     {
-        filters = Object.assign({}, {}, defaultFilters);
+        Object.assign(filters, defaultFilters);
     }
 
     function saveToStorage(){
