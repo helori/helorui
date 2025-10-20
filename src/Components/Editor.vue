@@ -104,9 +104,10 @@ export default defineComponent(
         html: {
             required: true,
         },
-        init: {
+        options: {
             type: Object,
             required: false,
+            default: () => ({}),
         },
         height: {
             type: Number,
@@ -258,7 +259,7 @@ export default defineComponent(
 
         function editorOptions()
         {
-            let options = {
+            let defaultOptions = {
                 license_key: 'gpl', // use the free self-hosted version of TinyMCE
                 target: editorElt.value,
 
@@ -338,13 +339,13 @@ export default defineComponent(
             };
 
             if(props.tables){
-                options.toolbar = 'undo redo | bold underline italic link removeformat | bullist numlist outdent indent | fullscreen code | table';
+                defaultOptions.toolbar = 'undo redo | bold underline italic link removeformat | bullist numlist outdent indent | fullscreen code | table';
                 // tabledelete | tableprops tablerowprops tablecellprops tablemergecells | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol
             }else{
-                options.toolbar = 'bold underline italic link removeformat | bullist numlist outdent indent | fullscreen code';
+                defaultOptions.toolbar = 'bold underline italic link removeformat | bullist numlist outdent indent | fullscreen code';
             }
 
-            return options;
+            return Object.assign({}, defaultOptions, props.options);
         }
 
         return {
