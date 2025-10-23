@@ -63,9 +63,6 @@ function dateLocalized(value, inputFormat)
 
     const { d } = useI18n({ useScope: 'global' })
     return formattedDate ? d(formattedDate, 'short') : '';
-
-    inputFormat = inputFormat ? inputFormat : 'yyyy-MM-dd HH:mm:ss';
-    return value ? DateTime.fromFormat(value, inputFormat).toFormat('dd MMM yyyy') : '';
 }
 
 function duration(inputSeconds)
