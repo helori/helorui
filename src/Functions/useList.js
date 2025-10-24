@@ -3,9 +3,9 @@ import useRequest from './useRequest.js'
 
 export default function(endpointValue, defaultParams = {}, defaultFilters = {}, storageKeyValue = null)
 {
+    const endpoint = ref(endpointValue);
     const pagination = ref(null);
 
-    let endpoint = endpointValue;
     let storageKey = storageKeyValue;
     let initiated = false;
 
@@ -28,7 +28,7 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
             orderDir: 'asc',
             limit: 10,
         }, defaultParams);
-        
+
         Object.assign(filters, defaultFilters);
     }
 
@@ -91,7 +91,8 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
     function read()
     {
-        if(!endpoint){
+        if(!endpoint.value){
+            console.log('No endpoint defined for useList, skipping read.');
             return Promise.resolve(null);
         }
 
@@ -109,14 +110,9 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
 
         //console.log('==> read', JSON.stringify(readParams.value));
 
-        return readFunc('GET', endpoint).then(r => {
+        return readFunc('GET', endpoint.value).then(r => {
             pagination.value = r.data;
         });
-    }
-
-    function setEndpoint(newEndpoint)
-    {
-        endpoint = newEndpoint;
     }
 
     // Do not watch changes before next tick (to avoid page reset on initFromStorage)
@@ -159,13 +155,13 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
     });
 
     return {
+        endpoint,
         pagination,
         readCommonParams,
         filters,
         read,
         readError,
         readStatus,
-        setEndpoint,
         resetFilters,
     };
 }
