@@ -30,8 +30,9 @@
 
 <script>
 
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, onMounted, watch } from 'vue'
 import useRequest from '../Functions/useRequest.js'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
 
@@ -93,6 +94,12 @@ export default defineComponent({
         onMounted(function(){
             read();
         })
+
+        const { locale } = useI18n({ useScope: 'global' })
+
+        watch(() => locale.value, (l) => {
+            read();
+        });
 
         // ----------------------------------------------------
         //  Update
