@@ -8,6 +8,11 @@
                 {{ field.label }} :
             </div>
 
+            <div v-if="field.description"
+                class="text-gray-500 dark:text-gray-400 text-sm">
+                {{ field.description }} :
+            </div>
+
             <template v-if="field.type === 'media'">
                 <input-image
                     class="mb-2 w-full"
