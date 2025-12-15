@@ -10,7 +10,8 @@
             <generic-form
                 :fields="fields"
                 v-model:model="updateData"
-                v-model:files="updateFiles" />
+                v-model:files="updateFiles"
+                :endpoint="endpoint" />
         </div>
 
         <div class="px-4 py-2 lg:px-8 border-t flex items-center gap-2 border-gray-300">

@@ -115,7 +115,8 @@
                 <generic-form
                     :fields="fields.filter(f => f.editable !== false)"
                     v-model:model="createDialog.data"
-                    v-model:files="createFiles">
+                    v-model:files="createFiles"
+                    :endpoint="endpoint">
                 </generic-form>
             </template>
         </dialog-form>
@@ -130,7 +131,8 @@
                 <generic-form
                     :fields="fields.filter(f => f.editable !== false)"
                     v-model:model="updateDialog.data"
-                    v-model:files="updateFiles">
+                    v-model:files="updateFiles"
+                    :endpoint="endpoint">
                 </generic-form>
             </template>
         </dialog-form>

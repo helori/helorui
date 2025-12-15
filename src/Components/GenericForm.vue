@@ -19,7 +19,7 @@
                     :image="item[field.name]"
                     v-model:file="itemFiles[field.name]"
                     @update:file="update"
-                    endpoint="/api/admin/media" />
+                    :endpoint="endpoint + '/' + item.id + '/media'" />
             </template>
 
             <template v-else-if="field.type === 'medias'">
@@ -28,7 +28,8 @@
                     :images="item[field.name]"
                     v-model:files="itemFiles[field.name]"
                     @update:files="update"
-                    endpoint="/api/admin/media" />
+                    :endpoint="endpoint + '/' + item.id + '/media'"
+                    :collection="field.name" />
             </template>
 
             <template v-else-if="field.type === 'select'">
@@ -147,6 +148,10 @@ export default defineComponent({
         },
         fields: {
             required: true,
+        },
+        endpoint: {
+            type: String,
+            required: false,
         },
     },
 

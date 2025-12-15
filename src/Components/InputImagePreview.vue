@@ -7,12 +7,20 @@
                 :src="image.url + '?' + image.decache" />
         </div>
 
-        <div class="flex flex-col gap-1 items-start">
+        <div class="flex-grow flex flex-col gap-1 items-start">
 
             <div class="">Largeur : {{ image.width }} px</div>
             <div class="">Hauteur : {{ image.height }} px</div>
             <div class="">Type : {{ image.mime }}</div>
             <div class="">Taille : {{ $filters.octets(image.size) }}</div>
+            <div class="" v-if="showPosition">Position : {{ image.position }}</div>
+
+            <input 
+                type="text"
+                v-model="image.title"
+                class="input w-full"
+                placeholder="Titre de l'image"
+                @change="rename" />
 
             <div class="flex items-center gap-2">
                 <button
@@ -76,12 +84,14 @@ export default defineComponent(
         endpoint: {
             required: true,
         },
+        showPosition: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     setup(props, { emit })
     {
-        let endpoint = '/api/admin/media';
-
         // ----------------------------------------------------
         //  Read
         // ----------------------------------------------------
@@ -95,7 +105,7 @@ export default defineComponent(
 
         function read()
         {
-            return readSend('get', endpoint + '/' + props.id).then(r => {
+            return readSend('get', props.endpoint + '/' + props.id).then(r => {
                 image.value = r.data;
             });
         }
@@ -120,7 +130,7 @@ export default defineComponent(
 
         function destroy()
         {
-            return destroyDialog.value.send('delete', endpoint + '/' + props.id).then(r => {
+            return destroyDialog.value.send('delete', props.endpoint + '/' + props.id).then(r => {
                 destroyDialog.value.close();
                 image.value = null;
             });
@@ -141,10 +151,32 @@ export default defineComponent(
 
         function download()
         {
-            return downloadSend('get', endpoint + '/' + props.id + '/download', { responseType: 'blob' }).then(r => {
+            return downloadSend('get', props.endpoint + '/' + props.id + '/download', { responseType: 'blob' }).then(r => {
                 downloadFile(r.data, image.value.filename);
             });
         }
+
+        // ----------------------------------------------------
+        //  Rename
+        // ----------------------------------------------------
+        const {
+            send: renameSend,
+            status: renameStatus,
+            error: renameError,
+            data: renameData,
+        } = useRequest();
+
+        function rename()
+        {
+            renameData.value = {
+                title: image.value.title,
+            };
+
+            return renameSend('put', props.endpoint + '/' + props.id).then(r => {
+                read();
+            });
+        }
+
 
         return {
             image,
@@ -159,6 +191,10 @@ export default defineComponent(
             download,
             downloadStatus,
             downloadError,
+
+            rename,
+            renameStatus,
+            renameError,
         };
     },
 })
