@@ -1,8 +1,9 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useList from './useList.js'
+import useRequest from './useRequest.js'
 
-export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
+export default function(fields, endpoint, orderBy, orderDir, storageKey = null, orderableBy = null)
 {
     const {
         pagination,
@@ -146,6 +147,48 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
         return field.editable !== false;
     }
 
+    // ----------------------------------------------------
+    //  Reorder
+    // ----------------------------------------------------
+    let dragPosition = null;
+    let dropPosition = null;
+
+    function drag(event, position)
+    {
+        dragPosition = position;
+    }
+
+    function drop(event, position)
+    {
+        event.preventDefault();
+        dropPosition = position;
+
+        reorder(dragPosition, dropPosition);
+
+        dragPosition = null;
+        dropPosition = null;
+    }
+
+    const {
+        send: reorderSend,
+        status: reorderStatus,
+        error: reorderError,
+        data: reorderData,
+    } = useRequest();
+
+    function reorder()
+    {
+        reorderData.value = {
+            position_field: orderableBy,
+            from_position: dragPosition,
+            to_position: dropPosition,
+        };
+
+        return reorderSend('post', endpoint + '/reorder').then(r => {
+            read();
+        });
+    }
+
     return {
         pagination,
         readCommonParams,
@@ -169,5 +212,10 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
         openDestroy,
 
         isFieldEditable,
+
+        drag,
+        drop,
+        reorderStatus,
+        reorderError,
     };
 }

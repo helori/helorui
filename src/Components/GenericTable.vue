@@ -10,6 +10,8 @@
             :has-search="true"
             v-model:search="readCommonParams.search">
 
+            <request-state :error="reorderError" :status="reorderStatus" />
+
             <button
                 v-if="canCreate"
                 type="button"
@@ -37,7 +39,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, idx) in pagination.data">
+                    <tr v-for="(item, idx) in pagination.data"
+                        :key="item.id"
+                        :draggable="orderableBy ? true : false"
+                        @dragstart="drag($event, item[orderableBy])"
+                        @drop="drop($event, item[orderableBy])"
+                        @dragover.prevent
+                        @dragenter.prevent>
                         <template v-for="field in fields.filter(f => f.table !== false)">
                             <td v-if="field.table !== false">
 
@@ -180,6 +188,12 @@ export default defineComponent({
             required: false,
             default: 'desc',
         },
+        orderableBy: {
+            type: String,
+            nullable: true,
+            required: false,
+            default: null,
+        },
         canCreate: {
             type: Boolean,
             required: false,
@@ -211,8 +225,11 @@ export default defineComponent({
             props.endpoint,
             props.orderBy,
             props.orderDir,
-            props.storageKey
+            props.storageKey,
+            props.orderableBy,
         );
+
+        console.log(table);
 
         return {
             fields,
