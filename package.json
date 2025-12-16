@@ -1,6 +1,6 @@
 {
   "name": "helorui",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "Vue3 components library",
   "type": "module",
   "main": "src/index.cjs",
