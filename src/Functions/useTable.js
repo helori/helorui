@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import useList from './useList.js'
 import useRequest from './useRequest.js'
 
-export default function(fields, endpoint, orderBy, orderDir, storageKey = null, orderableBy = null)
+export default function(fields, endpoint, orderBy, orderDir, storageKey = null)
 {
     const {
         pagination,
@@ -179,7 +179,6 @@ export default function(fields, endpoint, orderBy, orderDir, storageKey = null, 
     function reorder()
     {
         reorderData.value = {
-            position_field: orderableBy,
             from_position: dragPosition,
             to_position: dropPosition,
         };

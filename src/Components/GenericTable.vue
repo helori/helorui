@@ -32,9 +32,21 @@
                     <tr>
                         <template v-for="field in fields.filter(f => f.table !== false)">
                             <th v-if="!(field.table === false)">
-                                {{ field.label }}
+                                <table-sort-label
+                                    v-if="field.sortable === true"
+                                    :params="readCommonParams"
+                                    :order-key="field.name"
+                                    :label="field.label" />
+                                <div v-else>
+                                    {{ field.label }}
+                                </div>
                             </th>
                         </template>
+                        <th v-if="orderableBy">
+                            <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                            </svg>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -66,6 +78,9 @@
 
                             </td>
                         </template>
+                        <td v-if="orderableBy">
+                            {{ item[orderableBy] }}
+                        </td>
                         <td>
                             <div class="flex items-center justify-end gap-2">
                                 <button
@@ -230,8 +245,6 @@ export default defineComponent({
             props.storageKey,
             props.orderableBy,
         );
-
-        console.log(table);
 
         return {
             fields,
