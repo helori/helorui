@@ -26,6 +26,10 @@ function date(value, outputFormat, inputFormat)
 {
     var luxonDate = value;
 
+    if(value === null || value === undefined || value === ''){
+        return '';
+    }
+
     if(inputFormat)
     {
         // https://moment.github.io/luxon/#/parsing?id=fromformat
