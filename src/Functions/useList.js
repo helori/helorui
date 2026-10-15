@@ -1,13 +1,38 @@
 import { reactive, ref, watchEffect, watch, onMounted, onBeforeUnmount, toRaw, nextTick } from 'vue'
 import useRequest from './useRequest.js'
 
-export default function(endpointValue, defaultParams = {}, defaultFilters = {}, storageKeyValue = null)
+/**
+ * storageValue : conserve la recherche, les filtres, le tri et la page dans le navigateur.
+ *   - une chaîne : clé dans localStorage (comportement historique) ;
+ *   - un objet { key, session, initialFilters } :
+ *       key            : clé de stockage,
+ *       session        : true pour sessionStorage (le temps de l'onglet) au lieu de localStorage,
+ *       initialFilters : filtres imposés à l'ouverture (ex. lus dans l'URL) ; si l'un d'eux est
+ *                        renseigné, la liste repart des valeurs par défaut avec ces filtres au lieu
+ *                        de l'état conservé.
+ */
+export default function(endpointValue, defaultParams = {}, defaultFilters = {}, storageValue = null)
 {
     const endpoint = ref(endpointValue);
     const pagination = ref(null);
 
-    let storageKey = storageKeyValue;
+    const storageOptions = (typeof storageValue === 'string') ? { key: storageValue } : (storageValue ?? {});
+    const storageKey = storageOptions.key ?? null;
+    const initialFilters = Object.fromEntries(
+        Object.entries(storageOptions.initialFilters ?? {}).filter(([key, value]) => value !== null && value !== undefined)
+    );
     let initiated = false;
+
+    // Stockage indisponible (navigation privée, données bloquées) : la liste fonctionne sans
+    function storage()
+    {
+        try {
+            return storageOptions.session ? window.sessionStorage : window.localStorage;
+        }
+        catch(e){
+            return null;
+        }
+    }
 
     const readCommonParams = reactive(Object.assign({}, {
         page: 1,
@@ -38,16 +63,21 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
                 filters: { ...toRaw(filters) },
                 readCommonParams: { ...toRaw(readCommonParams) },
             };
-            localStorage.setItem(storageKey, JSON.stringify(toRaw(data)));
+            try {
+                storage()?.setItem(storageKey, JSON.stringify(toRaw(data)));
+            }
+            catch(e){}
         }
     }
 
     function loadFromStorage(){
         let data = {};
         if(storageKey){
-            if(localStorage.getItem(storageKey) !== null){
-                data = JSON.parse(localStorage.getItem(storageKey));
-                //console.log('loadFromStorage', storageKey, toRaw(data));
+            try {
+                data = JSON.parse(storage()?.getItem(storageKey) ?? null) ?? {};
+            }
+            catch(e){
+                data = {};
             }
         }
         return data;
@@ -61,7 +91,10 @@ export default function(endpointValue, defaultParams = {}, defaultFilters = {}, 
         {
             //console.log('=> init start');
 
-            let data = loadFromStorage();
+            // Filtres imposés à l'ouverture : on part des valeurs par défaut, pas de l'état conservé
+            let data = Object.keys(initialFilters).length
+                ? { filters: initialFilters }
+                : loadFromStorage();
 
             if(data.readCommonParams)
             {
