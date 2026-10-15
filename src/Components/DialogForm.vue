@@ -1,6 +1,7 @@
 <template>
     <dialog-modal
         ref="dialog"
+        :type="type === 'danger' ? 'danger' : null"
         :max-width-class="maxWidthClass">
 
         <template #title>
@@ -9,11 +10,10 @@
 
         <template #content>
             <slot name="content"></slot>
-            <request-error :error="error" class="mt-2" />
+            <request-error :error="error" class="mt-4" />
         </template>
 
         <template #footer>
-            <div class="flex items-center gap-2 justify-end">
                 <button
                     type="button"
                     class="btn btn-white"
@@ -33,7 +33,6 @@
                     @click="request">
                     {{ button ?? $t('Save') }}
                 </request-button>
-            </div>
         </template>
 
     </dialog-modal>

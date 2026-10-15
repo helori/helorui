@@ -3,11 +3,11 @@
         v-if="pagination !== null">
 
         <div v-if="pagination.meta.total > limitValue"
-            class="text-sm sm:text-md text-gray-600 dark:text-gray-200 italic">
+            class="text-sm text-slate-500 dark:text-slate-400 tabular-nums">
             <span class="hidden sm:inline">{{ resultsText ?? $t('Results') }}</span>
             {{ (pagination.meta.current_page - 1) * pagination.meta.per_page + 1 }}
             {{ $t('to') }} {{ Math.min(pagination.meta.current_page * pagination.meta.per_page, pagination.meta.total) }}
-            / {{ pagination.meta.total }}
+            {{ $t('of') }} {{ pagination.meta.total }}
         </div>
 
         <div class="flex-grow"></div>
@@ -21,7 +21,7 @@
 
         <select
             v-if="showLimit"
-            class="hidden sm:block input w-full sm:w-auto text-sm sm:text-md"
+            class="hidden sm:block input w-full sm:w-auto py-1.5 text-sm"
             v-model.number="limitValue"
             @change="$emit('update:limit', limitValue)">
             <option :value="5">5 {{ $t('per page') }}</option>

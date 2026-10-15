@@ -1,15 +1,15 @@
 <style scoped>
 .pagination-link{
-    @apply block px-3 py-2 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600;
+    @apply inline-flex items-center justify-center min-w-[2.25rem] h-9 px-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 tabular-nums transition-colors;
+}
+.pagination-link:not(.disabled):not(.active){
+    @apply cursor-pointer hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white;
 }
 .pagination-link.disabled{
-    @apply text-gray-500 hover:bg-white dark:hover:bg-gray-800;
-}
-.pagination-link:not(.disabled){
-    @apply cursor-pointer;
+    @apply text-slate-300 dark:text-slate-600;
 }
 .pagination-link.active{
-    @apply bg-primary-900 dark:bg-primary-600 text-white border border-primary-900 dark:border-primary-300;
+    @apply bg-primary-600 text-white dark:bg-primary-500;
 }
 </style>
 
@@ -18,21 +18,21 @@
         class="my-0"
         v-show="pagination.total > pagination.per_page"
         v-if="pagination !== null">
-        <ul class="list-none m-0 flex flex-row dark:text-white">
+        <ul class="list-none m-0 flex flex-row items-center gap-1">
 
             <li class="block"
                 v-if="pagination.current_page == 1"
                 aria-label="Previous">
-                <a class="pagination-link disabled rounded-l-md">
-                    <span aria-hidden="true">&laquo;</span>
+                <a class="pagination-link disabled">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" /></svg>
                 </a>
             </li>
 
             <li class="block" v-else>
-                <a class="pagination-link rounded-l-md"
+                <a class="pagination-link"
                     @click="$event.preventDefault(); setPage(pagination.current_page - 1)"
                     aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" /></svg>
                 </a>
             </li>
 
@@ -44,8 +44,7 @@
 
             <li class="block"
                 v-if="pagination.current_page >= 4">
-                <a class="pagination-link disabled"
-                    @click="$event.preventDefault()">...</a>
+                <span class="pagination-link disabled">…</span>
             </li>
 
             <li class="block"
@@ -62,8 +61,7 @@
 
             <li class="block"
                 v-if="pagination.current_page <= pagination.last_page - 3">
-                <a class="pagination-link disabled"
-                    @click="$event.preventDefault()">...</a>
+                <span class="pagination-link disabled">…</span>
             </li>
 
             <li class="block"
@@ -76,16 +74,16 @@
 
             <li class="block"
                 v-if="pagination.current_page == pagination.last_page">
-                <a class="pagination-link rounded-r-md disabled">
-                    <span aria-hidden="true">&raquo;</span>
+                <a class="pagination-link disabled">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg>
                 </a>
             </li>
 
             <li class="block" v-else>
-                <a class="pagination-link rounded-r-md"
+                <a class="pagination-link"
                     @click="$event.preventDefault(); setPage(pagination.current_page + 1)"
                     aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg>
                 </a>
             </li>
         </ul>

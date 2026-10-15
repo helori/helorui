@@ -30,6 +30,7 @@ import RequestStatus from './Components/RequestStatus.vue'
 import TableSortLabel from './Components/TableSortLabel.vue'
 import InputCheckbox from './Components/InputCheckbox.vue'
 import InputCheckboxMultiple from './Components/InputCheckboxMultiple.vue'
+import InputSwitch from './Components/InputSwitch.vue'
 import InputDate from './Components/InputDate.vue'
 import InputFile from './Components/InputFile.vue'
 import InputGroup from './Components/InputGroup.vue'
@@ -86,6 +87,7 @@ let components = {
     TableSortLabel,
     InputCheckbox,
     InputCheckboxMultiple,
+    InputSwitch,
     InputDate,
     InputFile,
     InputGroup,
