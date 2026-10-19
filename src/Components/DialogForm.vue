@@ -1,7 +1,7 @@
 <template>
     <dialog-modal
         ref="dialog"
-        :type="type === 'danger' ? 'danger' : null"
+        :type="type === 'primary' ? null : type"
         :max-width-class="maxWidthClass">
 
         <template #title>
@@ -23,10 +23,7 @@
 
                 <request-button
                     class="btn"
-                    :class="{
-                        'btn-primary': (type === 'primary'),
-                        'btn-red': (type === 'danger'),
-                    }"
+                    :class="['danger', 'error'].includes(type) ? 'btn-red' : 'btn-primary'"
                     :disabled-only-condition="enabled"
                     :status="status"
                     :error="error"
@@ -57,6 +54,8 @@
             maxWidthClass: {
                 default: 'max-w-screen-lg'
             },
+            // primary (sans pastille) ; success, info, warning, danger / error : pastille d'icône à gauche du titre.
+            // Le bouton est rouge pour danger / error, indigo sinon.
             type: {
                 type: String,
                 required: false,

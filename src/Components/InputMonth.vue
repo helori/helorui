@@ -3,12 +3,12 @@
     <dropdown
         ref="dropdown"
         :align="align"
-        :content-classes="['py-1', 'bg-white', 'dark:bg-gray-900', 'w-60']"
+        :content-classes="['w-60']"
         trigger-classes="p-2 h-full"
         :close-on-click="false">
 
         <template #trigger>
-            <div class="font-semibold text-black dark:text-white">
+            <div class="font-bold text-slate-900 dark:text-white">
                 {{ monthLabel(item.month) }} {{ item.year }}
             </div>
             <!--div class="text-xs leading-4 font-medium dark:text-white">
@@ -17,20 +17,20 @@
         </template>
 
         <template #content>
-            <div class="p-2 flex items-center gap-2 border-b border-gray-600">
+            <div class="p-2 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
 
-                <button class="btn btn-gray p-2 text-sm"
+                <button type="button" class="p-1.5 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                     @click="prevYear">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </button>
 
-                <div class="flex-grow text-center">
+                <div class="flex-grow text-center text-sm font-bold text-slate-900 dark:text-white">
                     {{ item.year }}
                 </div>
 
-                <button class="btn btn-gray p-2 text-sm"
+                <button type="button" class="p-1.5 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                     @click="nextYear">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -41,8 +41,8 @@
 
             <div class="p-2 grid grid-cols-3 gap-1">
                 <div v-for="month in months"
-                    class="py-1 px-2 rounded-md text-center cursor-pointer"
-                    :class="month.value === item.month ? 'bg-primary-600 text-white' : 'hover:bg-gray-700 hover:text-white'"
+                    class="py-1 px-2 rounded-md text-center text-sm cursor-pointer"
+                    :class="month.value === item.month ? 'bg-primary-600 text-white font-bold dark:bg-primary-400 dark:text-slate-900' : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'"
                     @click="setMonth(month.value)">
                     {{ month.short }}
                 </div>

@@ -1,48 +1,47 @@
 <template>
     <alert type="danger" v-if="error">
 
-        <!--div v-if="request.name !== null">
-            Erreur : {{ request.name }}
-        </div-->
-
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <!-- Validation error list -->
+        <!-- Erreurs de validation : une ligne, ou une liste quand il y en a plusieurs -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <div v-if="error.response && error.response.data && error.response.data.errors">
-
-            <div v-if="firstErrorOnly">
-                {{ error.response.data.errors[Object.keys(error.response.data.errors)[0]][0] }}
+        <template v-if="validationErrors.length">
+            <div v-if="validationErrors.length === 1 || firstErrorOnly">
+                {{ validationErrors[0] }}
             </div>
-            <div v-else>
-                <div v-for="(errorsGroup, field) in error.response.data.errors">
-                    <div v-for="err in errorsGroup">
-                        {{ err }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            <ul v-else class="list-disc pl-4 space-y-0.5">
+                <li v-for="(err, index) in validationErrors" :key="index">
+                    {{ err }}
+                </li>
+            </ul>
+        </template>
 
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <!-- Other custom error message -->
+        <!-- Message du serveur, ou message générique selon l'erreur -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <div v-else-if="error.response && error.response.data && error.response.data.message">
-            {{ error.response.data.message }}
-        </div>
-
-        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <!-- Generic error message for the error code -->
-        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <div v-else-if="error.message">
-            {{ error.message }}
+        <div v-else-if="message">
+            {{ message.generic ? $t(message.text) : message.text }}
         </div>
 
     </alert>
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
+    import { defineComponent, computed } from 'vue'
     import Alert from './Alert.vue'
+
+    // Messages génériques de Laravel et d'axios, traduits par l'application hôte.
+    // Tout autre message vient de l'application elle-même et s'affiche tel quel.
+    const GENERIC_MESSAGES = [
+        'Network Error',
+        'Server Error',
+        'Unauthenticated.',
+        'This action is unauthorized.',
+        'Not Found',
+        'Too Many Attempts.',
+        'Service Unavailable',
+        'Page Expired',
+        'CSRF token mismatch.',
+    ];
 
     export default defineComponent({
         components: {
@@ -57,6 +56,32 @@
                 default: false,
                 required: false,
             }
+        },
+
+        setup(props)
+        {
+            const validationErrors = computed(() => {
+                const errors = props.error?.response?.data?.errors;
+                return errors ? Object.values(errors).flat() : [];
+            });
+
+            const message = computed(() => {
+                const text = props.error?.response?.data?.message || props.error?.message;
+                if(!text){
+                    return null;
+                }
+                // « Request failed with status code 500 » : axios, sans rien venant du serveur
+                if(/^Request failed with status code/.test(text)){
+                    const byStatus = { 401: 'Unauthenticated.', 403: 'This action is unauthorized.', 404: 'Not Found', 419: 'Page Expired', 429: 'Too Many Attempts.', 503: 'Service Unavailable' };
+                    return { text: byStatus[props.error?.response?.status] ?? 'Server Error', generic: true };
+                }
+                return { text, generic: GENERIC_MESSAGES.includes(text) };
+            });
+
+            return {
+                validationErrors,
+                message,
+            };
         }
     })
 </script>

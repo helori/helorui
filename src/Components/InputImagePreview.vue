@@ -1,19 +1,18 @@
 <template>
     <div v-if="image"
-        class="flex items-start gap-2 p-3 rounded-md bg-gray-100 dark:bg-gray-700">
+        class="flex items-start gap-4 p-3 rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
 
-        <div class="w-36 h-36 shrink-0 grow-0 bg-white border border-gray-300 overflow-hidden">
-            <img class="w-36 h-36 object-contain"
+        <div class="size-36 shrink-0 grow-0 rounded-md border border-slate-200 bg-slate-50 overflow-hidden dark:border-slate-700 dark:bg-slate-800">
+            <img class="size-36 object-contain"
                 :src="image.url + '?' + image.decache" />
         </div>
 
-        <div class="flex-grow flex flex-col gap-1 items-start">
+        <div class="min-w-0 flex-grow flex flex-col gap-1 items-start text-sm">
 
-            <div class="">Largeur : {{ image.width }} px</div>
-            <div class="">Hauteur : {{ image.height }} px</div>
-            <div class="">Type : {{ image.mime }}</div>
-            <div class="">Taille : {{ $filters.octets(image.size) }}</div>
-            <div class="" v-if="showPosition">Position : {{ image.position }}</div>
+            <div class="text-slate-500 dark:text-slate-400">
+                {{ image.width }} × {{ image.height }} px · {{ $filters.octets(image.size) }} · {{ image.mime }}
+            </div>
+            <div class="text-slate-500 dark:text-slate-400" v-if="showPosition">Position : {{ image.position }}</div>
 
             <input 
                 type="text"
@@ -22,19 +21,19 @@
                 placeholder="Titre de l'image"
                 @change="rename" />
 
-            <div class="flex items-center gap-2">
+            <div class="mt-1 flex items-center gap-4">
                 <button
                     type="button"
-                    class="pb-1 border-b-2 text-red-700 dark:text-red-400 border-red-700 dark:border-red-400"
-                    @click="destroyOpen">
-                    Supprimer
+                    class="text-sm font-bold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                    @click="download">
+                    Télécharger
                 </button>
 
                 <button
                     type="button"
-                    class="pb-1 border-b-2 text-blue-700 dark:text-blue-400 border-blue-700 dark:border-blue-400"
-                    @click="download">
-                    Télécharger
+                    class="text-sm font-bold text-slate-500 hover:text-red-700 dark:text-slate-400 dark:hover:text-red-400"
+                    @click="destroyOpen">
+                    Supprimer
                 </button>
 
                 <!--button
@@ -56,13 +55,13 @@
 
         <dialog-form
             ref="destroyDialog"
-            title="Supprimer l'image"
-            button="Supprimer"
+            title="Supprimer cette image ?"
+            button="Supprimer l'image"
             type="danger"
             max-width-class="max-w-screen-sm"
             :callback="destroy">
             <template #content>
-                Voulez-vous vraiment supprimer cette image ?
+                <p>L'image est supprimée définitivement.</p>
             </template>
         </dialog-form>
 

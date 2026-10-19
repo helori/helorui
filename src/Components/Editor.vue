@@ -364,3 +364,31 @@ export default defineComponent(
 })
 </script>
 
+
+<style>
+/* Cadre de l'éditeur seulement, aligné sur les champs (.input) : bordure slate, coins rounded-md,
+   anneau indigo au focus. Rien sur le contenu (iframe, content_css) ni sur le plein écran. */
+.editor .tox.tox-tinymce:not(.tox-fullscreen) {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.editor .tox.tox-tinymce:not(.tox-fullscreen):focus-within {
+    border-color: #818cf8;
+    box-shadow: 0 0 0 3px rgb(199 210 254 / 0.5);
+}
+.editor .tox:not(.tox-tinymce-inline) .tox-editor-header {
+    box-shadow: none;
+    border-bottom: 1px solid #e2e8f0;
+}
+.dark .editor .tox.tox-tinymce:not(.tox-fullscreen) {
+    border-color: #64748b;
+}
+.dark .editor .tox.tox-tinymce:not(.tox-fullscreen):focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgb(49 46 129 / 0.5);
+}
+.dark .editor .tox:not(.tox-tinymce-inline) .tox-editor-header {
+    border-bottom-color: #334155;
+}
+</style>

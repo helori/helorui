@@ -1,5 +1,5 @@
 <template>
-    <div v-if="status === 'pending' || error">
+    <div v-if="status === 'pending' || error" class="space-y-2">
         <request-status :status="status" :message="message" :icon-classes="iconClasses" :message-classes="messageClasses" />
         <request-error :error="error" />
     </div>
@@ -29,13 +29,13 @@
             message: {
                 type: String,
                 required: false,
-                default: "Loading...",
+                default: "",
             },
             iconClasses: {
-                default: "size-5 text-gray-900",
+                default: "size-5 text-primary-600 dark:text-primary-400",
             },
             messageClasses: {
-                default: "",
+                default: "text-sm font-medium text-slate-500 dark:text-slate-400",
             },
         }
     })

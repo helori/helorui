@@ -1,23 +1,28 @@
 <template>
     <button
-        :disabled="(status === 'pending') && disabledOnlyCondition"
-        :class="{ 'opacity-75': (status === 'pending') && disabledOnlyCondition }">
-        <div class="flex gap-2 items-center mx-auto justify-center">
-            <div v-if="(status === 'pending') && disabledOnlyCondition">
-                <loader :message="pendingMessage"
-                    :icon-classes="iconClasses" />
-            </div>
-            <div>
+        :disabled="pending"
+        :aria-busy="pending"
+        :class="{ 'cursor-wait opacity-80': pending }">
+        <span class="flex gap-2 items-center mx-auto justify-center">
+            <loader v-if="pending"
+                :message="pendingMessage"
+                :message-classes="''"
+                :icon-classes="iconClasses" />
+            <span v-if="!pending || !pendingMessage">
                 <slot></slot>
-            </div>
-        </div>
+            </span>
+        </span>
     </button>
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
+    import { defineComponent, computed } from 'vue'
+    import Loader from './Loader.vue'
 
     export default defineComponent({
+        components: {
+            Loader,
+        },
         props: {
             status: {
                 required: true
@@ -34,9 +39,19 @@
                 type: String,
                 default: '',
             },
+            // Sans couleur : le spinner prend celle du texte du bouton (blanc sur btn-primary)
             iconClasses: {
-                default: 'w-5 h-5 text-gray-900 dark:text-white',
+                default: 'size-4',
             },
+        },
+
+        setup(props)
+        {
+            const pending = computed(() => props.status === 'pending' && props.disabledOnlyCondition);
+
+            return {
+                pending,
+            };
         },
     })
 </script>

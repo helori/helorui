@@ -14,7 +14,10 @@
                 :endpoint="endpoint" />
         </div>
 
-        <div class="px-4 py-2 lg:px-8 border-t flex items-center gap-2 border-gray-300">
+        <div class="px-4 py-3 lg:px-8 border-t flex items-center justify-end gap-2 border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/50">
+            <!-- États à gauche, bouton à droite, comme le pied des sections -->
+            <request-state class="mr-auto" :error="readError" :status="readStatus" />
+            <request-state class="mr-auto" :error="updateError" :status="updateStatus" />
             <request-button
                 class="btn btn-primary"
                 @click="update"
@@ -22,8 +25,6 @@
                 :error="updateError">
                 Enregistrer
             </request-button>
-            <request-state :error="readError" :status="readStatus" />
-            <request-state :error="updateError" :status="updateStatus" />
         </div>
 
     </div>

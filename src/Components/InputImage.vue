@@ -13,20 +13,16 @@
                 :endpoint="endpoint" />
         </div>
 
-        <input
-            ref="fileInput"
-            type="file"
-            :multiple="false"
-            :id="'file-input-' + id"
-            class="absolute -left-[9999px]"
-            @change="setFile"
-            :accept="accept">
-
-        <label
-            :for="'file-input-' + id"
-            class="btn btn-primary">
-            <slot name="content">Choisir une image...</slot>
-        </label>
+        <div>
+            <input-file
+                :accept="accept"
+                :multiple="false"
+                @files-selected="e => setFile(e.files[0] ?? null)">
+                <template #content>
+                    <slot name="content">{{ (file || image) ? "Remplacer l'image…" : 'Choisir une image…' }}</slot>
+                </template>
+            </input-file>
+        </div>
 
     </div>
 </template>
@@ -36,12 +32,14 @@
 import { defineComponent, ref, watch } from 'vue'
 import InputImagePreview from './InputImagePreview.vue'
 import InputImageFilePreview from './InputImageFilePreview.vue'
+import InputFile from './InputFile.vue'
 
 export default defineComponent(
 {
     components: {
         InputImagePreview,
         InputImageFilePreview,
+        InputFile,
     },
 
     props: {
@@ -68,23 +66,19 @@ export default defineComponent(
 
     setup(props, { emit })
     {
-        const fileInput = ref(null);
-        const id = ref(Math.floor(Math.random()*(9999-1000+1)+1000));
         const selectedFile = ref(props.file);
 
         watch(() => props.file, (f) => {
             selectedFile.value = f;
         });
 
-        function setFile(e)
+        function setFile(file)
         {
-            selectedFile.value = e ? e.target.files[0] : null;
+            selectedFile.value = file ?? null;
             emit('update:file', selectedFile.value);
         }
 
         return {
-            id,
-            fileInput,
             selectedFile,
             setFile,
         };

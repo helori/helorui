@@ -1,8 +1,8 @@
 <template>
 
-    <div class="text-sm grid grid-cols-2 w-full font-medium rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700">
+    <div class="text-sm grid grid-cols-2 w-full font-medium rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-sm">
         <div class="flex items-center">
-            <div class="whitespace-nowrap pl-2 py-2 z-0 text-gray-500 dark:text-gray-200">
+            <div class="whitespace-nowrap pl-2 py-2 z-0 text-slate-500 dark:text-slate-400">
                 De :
             </div>
 
@@ -14,7 +14,7 @@
         </div>
         <div class="flex">
 
-            <div class="whitespace-nowrap pl-2 border-l border-gray-300 dark:border-gray-600 py-2 rounded-none z-0 text-gray-500 dark:text-gray-200">
+            <div class="whitespace-nowrap pl-2 border-l border-slate-300 dark:border-slate-500 py-2 rounded-none z-0 text-slate-500 dark:text-slate-400">
                 À :
             </div>
 

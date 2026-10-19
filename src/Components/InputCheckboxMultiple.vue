@@ -3,7 +3,7 @@
     <div class="grid gap-2">
         <input-checkbox
             v-for="option in options"
-            class="text-sm font-normal"
+            class="text-sm"
             :key="option[valueKey]"
             :class="optionClass"
             :modelValue="has(option[valueKey])"
@@ -19,7 +19,7 @@
 <script>
 
 import { defineComponent, ref, watch } from 'vue'
-import InputCheckbox from './InputCheckbox'
+import InputCheckbox from './InputCheckbox.vue'
 
 export default defineComponent(
 {
@@ -55,10 +55,10 @@ export default defineComponent(
 
     setup(props, { emit })
     {
-        const item = ref(props.modelValue);
+        const item = ref([...(props.modelValue ?? [])]);
 
         watch(() => props.modelValue, function(v){
-            item.value = v;
+            item.value = [...(v ?? [])];
         });
 
         function toggle(value)
@@ -85,7 +85,7 @@ export default defineComponent(
 
         function update()
         {
-            emit('update:modelValue', item.value);
+            emit('update:modelValue', [...item.value]);
         }
 
         return {

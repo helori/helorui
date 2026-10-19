@@ -1,12 +1,11 @@
 <template>
-    <div class="flex gap-2"
+    <div class="flex items-baseline gap-2 text-sm"
         v-if="!isEmpty || !hideOnNull">
-        <div class="text-gray-600 dark:text-gray-400 sm:shrink-0 text-xs sm:text-sm uppercase sm:normal-case"
+        <div class="shrink-0 max-w-[60%] text-slate-500 dark:text-slate-400"
             :class="labelClass">
-            {{ label }}
-            {{ semicolon ? ':' : '' }}
+            {{ label }}{{ semicolon ? '\u00a0:' : '' }}
         </div>
-        <div class="dark:text-white flex text-sm sm:text-sm text-left" :class="valueClass">
+        <div class="min-w-0 flex break-words text-left text-slate-900 dark:text-white" :class="valueClass">
             <span>
                 <template v-if="type === 'date'">
                     {{ $filters.date(value, params.outputFormat ? params.outputFormat : null, params.inputFormat ? params.inputFormat : null) }}
@@ -27,10 +26,10 @@
                     {{ $filters.siret(value) }}
                 </template>
                 <template v-else-if="type === 'email'">
-                    <a :href="'mailto:' + value" target="_blank" class="text-primary underline">{{ value }}</a>
+                    <a :href="'mailto:' + value" target="_blank" class="text-primary-600 hover:underline dark:text-primary-400">{{ value }}</a>
                 </template>
                 <template v-else-if="type === 'url'">
-                    <a :href="value" target="_blank" class="text-primary underline">{{ value }}</a>
+                    <a :href="value" target="_blank" class="text-primary-600 hover:underline dark:text-primary-400">{{ value }}</a>
                 </template>
                 <template v-else-if="type === 'html'">
                     <div v-html="value"></div>
@@ -41,7 +40,7 @@
                 <slot name="value"></slot>
             </span>
             <span v-if="suffix && !isEmpty"
-                class="ml-1">
+                class="ml-1 font-medium text-slate-500 dark:text-slate-400">
                 {{ suffix }}
             </span>
         </div>

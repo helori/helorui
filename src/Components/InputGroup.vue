@@ -1,17 +1,17 @@
 <template>
-    <div class="flex w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700">
-        <div v-if="prefix" 
-            class="whitespace-nowrap pl-2 py-2 rounded-l-md text-gray-500 dark:text-gray-200"
+    <div class="flex items-stretch w-full rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-sm">
+        <div v-if="prefix"
+            class="flex items-center whitespace-nowrap pl-3 rounded-l-md text-slate-500 dark:text-slate-400"
             :class="prefixClasses">
             {{ prefix }}
         </div>
         <slot name="input"></slot>
         <div v-if="unit"
-            class="px-2 py-2 whitespace-nowrap rounded-r-md">
+            class="flex items-center px-3 whitespace-nowrap rounded-r-md text-slate-500 dark:text-slate-400">
             {{ unit }}
         </div>
         <div v-if="suffix"
-            class="whitespace-nowrap pr-2 py-2 rounded-r-md text-gray-500 dark:text-gray-200">
+            class="flex items-center whitespace-nowrap pr-3 rounded-r-md text-slate-500 dark:text-slate-400">
             {{ suffix }}
         </div>
         <slot name="button"></slot>

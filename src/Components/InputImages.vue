@@ -23,20 +23,16 @@
             </template>
         </div>
 
-        <input
-            ref="fileInput"
-            type="file"
-            :multiple="true"
-            :id="'file-input-' + id"
-            class="absolute -left-[9999px]"
-            @change="addFiles"
-            :accept="accept">
-
-        <label
-            :for="'file-input-' + id"
-            class="btn btn-primary w-full mt-2">
-            <slot name="content">Ajouter des images...</slot>
-        </label>
+        <div class="mt-2">
+            <input-file
+                :accept="accept"
+                :multiple="true"
+                @files-selected="e => addFiles(e.files)">
+                <template #content>
+                    <slot name="content">Ajouter des images…</slot>
+                </template>
+            </input-file>
+        </div>
 
     </div>
 </template>
@@ -46,11 +42,13 @@
 import { defineComponent, ref, watch } from 'vue'
 import InputImagePreview from './InputImagePreview.vue'
 import InputImageFilePreview from './InputImageFilePreview.vue'
+import InputFile from './InputFile.vue'
 import useRequest from '../Functions/useRequest.js'
 
 export default defineComponent(
 {
     components: {
+        InputFile,
         InputImagePreview,
         InputImageFilePreview,
     },
@@ -88,17 +86,15 @@ export default defineComponent(
     {
         const localImages = ref([...(props.images ?? [])]);
 
-        const fileInput = ref(null);
-        const id = ref(Math.floor(Math.random()*(9999-1000+1)+1000));
         const selectedFiles = ref(props.files ?? []);
 
         watch(() => props.files, (f) => {
             selectedFiles.value = f ?? [];
         });
 
-        function addFiles(e)
+        function addFiles(files)
         {
-            selectedFiles.value = [...selectedFiles.value, ...e.target.files];
+            selectedFiles.value = [...selectedFiles.value, ...files];
             emit('update:files', selectedFiles.value);
         }
 
@@ -174,8 +170,6 @@ export default defineComponent(
 
         return {
             localImages,
-            id,
-            fileInput,
             selectedFiles,
             addFiles,
             removeFileAt,

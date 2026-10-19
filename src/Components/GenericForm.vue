@@ -4,12 +4,12 @@
         <template v-for="field in fields">
 
             <div v-if="field.label && field.type !== 'boolean'"
-                class="font-bold">
-                {{ field.label }} :
+                class="font-bold text-slate-900 dark:text-white">
+                {{ field.label }}
             </div>
 
             <div v-if="field.description"
-                class="text-gray-500 dark:text-gray-400 text-sm">
+                class="text-slate-500 dark:text-slate-400 text-sm">
                 {{ field.description }}
             </div>
 
