@@ -49,6 +49,9 @@ app.config.globalProperties.$filters = helorui.filters;
 élément dans les popups), `canCreate`, `canUpdate`, `canDelete`, `orderBy`, `orderDir`,
 `orderableBy`, `storageKey`.
 
+Le slot `before-list` de `generic-table` accueille un contenu entre le titre et la liste
+(chiffres clés, graphique).
+
 Options d'un champ :
 
 | Clé | Effet |

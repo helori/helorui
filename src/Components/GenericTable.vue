@@ -18,6 +18,9 @@
                 </button>
             </template>
 
+            <!-- Contenu propre au projet entre le titre et la liste (graphique, chiffres clés…) -->
+            <slot name="before-list"></slot>
+
             <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
             <!-- Recherche -->
             <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
