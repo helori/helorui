@@ -1,0 +1,300 @@
+/* ------------------------------------------------------------------
+   helorui — classes communes aux composants et aux applications
+
+   À importer dans la feuille Tailwind du projet, avant les directives :
+       @import 'helorui/src/css/helorui.css';
+       @tailwind base;
+       @tailwind components;
+       @tailwind utilities;
+
+   Le projet doit déclarer dans tailwind.config.js les couleurs primary,
+   slate, red, amber, emerald et blue, et lister les fichiers .vue de
+   node_modules/helorui dans `content` (voir le README).
+
+   Rôles des couleurs : primary pour l'action et la mise en avant, slate pour
+   les neutres, emerald / amber / red pour succès / alerte / danger (jamais
+   décoratifs). Chaque couleur a son pendant en mode sombre (dark:).
+
+   Tout est en @layer components : une classe du projet ou un utilitaire
+   Tailwind écrit à l'usage passe devant.
+   ------------------------------------------------------------------ */
+
+@layer components{
+
+    /* ----------------------------------------
+       Boutons
+       ---------------------------------------- */
+    .btn{
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold border border-transparent rounded-lg shadow-sm text-center transition-colors cursor-pointer;
+    }
+    .btn:focus{
+        @apply outline-none;
+    }
+    .btn:focus-visible{
+        @apply ring-2 ring-offset-1 ring-primary-300 dark:ring-primary-700 dark:ring-offset-slate-900;
+    }
+    .btn:disabled, .btn.disabled{
+        @apply opacity-50 cursor-not-allowed;
+    }
+    .btn.btn-sm{
+        @apply px-3 py-1.5 text-sm;
+    }
+    .btn.btn-xs{
+        @apply px-2 py-1 text-xs;
+    }
+    .btn svg{
+        @apply size-4 shrink-0;
+    }
+
+    /* Action principale */
+    .btn-primary{
+        @apply bg-primary-600 text-white dark:bg-primary-500;
+    }
+    .btn-primary:not(:disabled):hover{
+        @apply bg-primary-700 dark:bg-primary-400;
+    }
+
+    /* Action secondaire : annuler, outil, réglage */
+    .btn-white{
+        @apply bg-white border-slate-300 text-slate-700 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200;
+    }
+    .btn-white:not(:disabled):hover{
+        @apply bg-slate-50 text-slate-900 dark:bg-slate-700 dark:text-white;
+    }
+
+    /* Action qui détruit (supprimer), seulement dans un pied de section ou de popup */
+    .btn-red{
+        @apply bg-red-600 text-white dark:bg-red-600;
+    }
+    .btn-red:not(:disabled):hover{
+        @apply bg-red-700 dark:bg-red-500;
+    }
+
+    /* Bouton d'action d'une ligne : une icône, sans fond tant qu'on ne le survole pas.
+       Toujours un `title` qui dit l'action et sur qui. */
+    .btn-icon{
+        @apply inline-flex items-center justify-center p-2 rounded-lg text-slate-400 dark:text-slate-500
+               hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 transition-colors;
+    }
+    .btn-icon svg{
+        @apply w-5 h-5;
+    }
+    .btn-icon-danger{
+        @apply hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-900 dark:hover:text-red-200;
+    }
+
+    /* ----------------------------------------
+       Champs de formulaire
+       ---------------------------------------- */
+    .input{
+        @apply font-medium px-3 py-2 border border-slate-300 rounded-lg shadow-sm bg-white text-slate-900
+               dark:border-slate-600 dark:bg-slate-800 dark:text-white
+               placeholder:text-slate-400 dark:placeholder:text-slate-500;
+    }
+    .input:focus{
+        @apply outline-none border-primary-500 ring-2 ring-primary-200 dark:border-primary-400 dark:ring-primary-900;
+    }
+    .input:disabled{
+        @apply bg-slate-50 text-slate-500 cursor-not-allowed dark:bg-slate-900 dark:text-slate-400;
+    }
+    select.input{
+        @apply pr-8;
+    }
+    .input.invalid{
+        @apply border-red-500 dark:border-red-400;
+    }
+
+    /* Libellé d'un champ (FormField) : au-dessus, en gras, sans deux-points */
+    .field-label{
+        @apply mb-1.5 block text-sm font-bold text-slate-700 dark:text-slate-200;
+    }
+    /* Aide sous un champ */
+    .field-hint{
+        @apply mt-1.5 text-sm text-slate-500 dark:text-slate-400;
+    }
+
+    .separator{
+        @apply h-px bg-slate-200 dark:bg-slate-700;
+    }
+
+    /* ----------------------------------------
+       Messages (mêmes couleurs que <alert>)
+       ---------------------------------------- */
+    .alert{
+        @apply px-4 py-2 border border-transparent rounded-lg text-sm font-medium;
+    }
+    .alert-red{
+        @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-200;
+    }
+    .alert-green{
+        @apply bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-200;
+    }
+
+    /* Étiquette de statut ou de catégorie (rôle, état, type).
+       Un état se dit par une étiquette, pas par un texte coloré ni une icône seule. */
+    .tag{
+        @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold whitespace-nowrap;
+    }
+    .tag-neutral{
+        @apply bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300;
+    }
+    .tag-primary{
+        @apply bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300;
+    }
+    .tag-info{
+        @apply bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-200;
+    }
+    .tag-success{
+        @apply bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300;
+    }
+    .tag-warning{
+        @apply bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300;
+    }
+    .tag-danger{
+        @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200;
+    }
+
+    /* ----------------------------------------
+       Menus déroulants (panneau `dropdown`) : les entrées reprennent
+       celles du menu latéral, à pleine largeur du panneau
+       ---------------------------------------- */
+    .dropdown-link{
+        @apply flex items-center gap-2.5 w-full px-3 py-2 text-sm font-medium leading-5 text-left text-slate-700 dark:text-slate-200 transition-colors cursor-pointer;
+    }
+    .dropdown-link:hover,
+    .dropdown-link:focus-visible{
+        @apply outline-none bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-white;
+    }
+    .dropdown-link.dropdown-link-active{
+        @apply font-bold bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300;
+    }
+    .dropdown-link.dropdown-link-danger:hover,
+    .dropdown-link.dropdown-link-danger:focus-visible{
+        @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200;
+    }
+    .dropdown-icon{
+        @apply size-5 shrink-0 text-slate-400 dark:text-slate-500 transition-colors;
+    }
+    .dropdown-link:hover .dropdown-icon,
+    .dropdown-link:focus-visible .dropdown-icon,
+    .dropdown-link.dropdown-link-active .dropdown-icon{
+        @apply text-current;
+    }
+    .dropdown-separator{
+        @apply my-1 h-px bg-slate-100 dark:bg-slate-800;
+    }
+
+    /* ----------------------------------------
+       Menu latéral (SideNavLayout)
+       ---------------------------------------- */
+    .side-nav-title{
+        @apply mt-6 mb-1 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500;
+    }
+    .side-nav-link{
+        @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 transition-colors;
+    }
+    .side-nav-link:hover{
+        @apply bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-white;
+    }
+    .side-nav-link.side-nav-link-active{
+        @apply font-bold bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300;
+    }
+    .side-nav-link.side-nav-link-danger:hover,
+    .side-nav-link.side-nav-link-danger.side-nav-link-active{
+        @apply bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200;
+    }
+    .side-nav-icon{
+        @apply w-5 h-5 shrink-0 text-slate-400 dark:text-slate-500 transition-colors;
+    }
+    .side-nav-link:hover .side-nav-icon,
+    .side-nav-link.side-nav-link-active .side-nav-icon{
+        @apply text-current;
+    }
+    .side-nav-toggle{
+        @apply p-1.5 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white transition-colors;
+    }
+
+    /* ------------------------------------------------------------------
+       Tableaux — deux familles
+       .table-wrapper : une page dont le tableau est le sujet, dans une carte,
+         en-tête collant, lignes survolables, recherche et pagination autour.
+       .table-simple-wrapper : des données dans une fiche ou un panneau, sans carte.
+       ------------------------------------------------------------------ */
+    .table-wrapper{
+        @apply -mx-4 sm:mx-0 bg-white dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-200
+               border-y sm:border border-slate-200 dark:border-slate-700 sm:rounded-xl shadow-sm overflow-x-auto;
+    }
+    .table-wrapper table{
+        @apply w-full;
+    }
+    /* Le trait sous l'en-tête est une ombre : une bordure ne suit pas une cellule collante */
+    .table-wrapper table th{
+        z-index: 1;
+        position: sticky;
+        top: 0;
+        box-shadow: inset 0 -1px 0 theme('colors.slate.200');
+        @apply whitespace-nowrap text-left bg-slate-50 dark:bg-slate-800 px-4 py-2.5
+               text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400;
+    }
+    .dark .table-wrapper table th{
+        box-shadow: inset 0 -1px 0 theme('colors.slate.700');
+    }
+    /* Lignes de regroupement dans le corps */
+    .table-wrapper tbody th{
+        position: static;
+        box-shadow: none;
+        @apply normal-case tracking-normal text-sm text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/60;
+    }
+    .table-wrapper tbody tr{
+        @apply border-b last:border-none border-slate-100 dark:border-slate-800 transition-colors;
+    }
+    .table-wrapper tbody tr:hover{
+        @apply bg-slate-50/70 dark:bg-slate-800/40;
+    }
+    .table-wrapper table td{
+        @apply px-4 py-3 align-middle;
+    }
+    .table-wrapper.table-sm table th{
+        @apply py-1.5 px-3;
+    }
+    .table-wrapper.table-sm table td{
+        @apply py-1.5 px-3;
+    }
+
+    .table-simple-wrapper{
+        @apply text-sm overflow-x-auto;
+    }
+    .table-simple-wrapper thead th,
+    .table-simple-wrapper thead td{
+        @apply px-3 py-1.5 first:pl-0 last:pr-0 border-b border-slate-200 dark:border-slate-700
+               text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 whitespace-nowrap text-left;
+    }
+    .table-simple-wrapper tbody td{
+        @apply px-3 py-2 first:pl-0 last:pr-0;
+    }
+    .table-simple-wrapper tbody tr{
+        @apply border-t border-slate-100 dark:border-slate-800 first:border-none;
+    }
+
+    /* Contenu des cellules, communs aux deux familles */
+    .cell-main{
+        @apply font-bold text-slate-900 dark:text-white;
+    }
+    .cell-sub{
+        @apply text-sm text-slate-500 dark:text-slate-400;
+    }
+    .cell-num{
+        @apply text-right tabular-nums;
+    }
+    .cell-empty{
+        @apply py-10 text-center text-slate-500 dark:text-slate-400 whitespace-normal;
+    }
+    .cell-actions{
+        @apply flex items-center justify-end gap-1;
+    }
+    /* Valeur absente : un tiret cadratin gris */
+    .cell-none{
+        @apply text-slate-400 dark:text-slate-500;
+    }
+}

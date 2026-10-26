@@ -48,6 +48,11 @@ import InputMonth from './Components/InputMonth.vue'
 import InputPeriodMonth from './Components/InputPeriodMonth.vue'
 import InputSelectRange from './Components/InputSelectRange.vue'
 import Tabs from './Components/Tabs.vue'
+import AppPage from './Components/AppPage.vue'
+import AppSection from './Components/AppSection.vue'
+import FormField from './Components/FormField.vue'
+import SideNavLayout from './Components/SideNavLayout.vue'
+import StatTiles from './Components/StatTiles.vue'
 
 let functions = {
     useAsset,
@@ -62,6 +67,11 @@ let functions = {
 };
 
 let components = {
+    AppPage,
+    AppSection,
+    FormField,
+    SideNavLayout,
+    StatTiles,
     InputMinMax,
     InputMonth,
     InputPeriodMonth,
