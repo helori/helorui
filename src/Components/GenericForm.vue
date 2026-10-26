@@ -16,6 +16,7 @@
             <template v-if="field.type === 'media'">
                 <input-image
                     class="mb-2 w-full"
+                    :accept="field.accept"
                     :image="item[field.name]"
                     v-model:file="itemFiles[field.name]"
                     @update:file="update"
@@ -25,6 +26,7 @@
             <template v-else-if="field.type === 'medias'">
                 <input-images
                     class="mb-2 w-full"
+                    :accept="field.accept"
                     :images="item[field.name]"
                     v-model:files="itemFiles[field.name]"
                     @update:files="update"

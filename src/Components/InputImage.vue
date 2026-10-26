@@ -19,7 +19,7 @@
                 :multiple="false"
                 @files-selected="e => setFile(e.files[0] ?? null)">
                 <template #content>
-                    <slot name="content">{{ (file || image) ? "Remplacer l'image…" : 'Choisir une image…' }}</slot>
+                    <slot name="content">{{ (file || image) ? (imagesOnly ? "Remplacer l'image…" : 'Remplacer le fichier…') : (imagesOnly ? 'Choisir une image…' : 'Choisir un fichier…') }}</slot>
                 </template>
             </input-file>
         </div>
@@ -29,7 +29,7 @@
 
 <script>
 
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import InputImagePreview from './InputImagePreview.vue'
 import InputImageFilePreview from './InputImageFilePreview.vue'
 import InputFile from './InputFile.vue'
@@ -67,6 +67,7 @@ export default defineComponent(
     setup(props, { emit })
     {
         const selectedFile = ref(props.file);
+        const imagesOnly = computed(() => props.accept === 'image/*');
 
         watch(() => props.file, (f) => {
             selectedFile.value = f;
@@ -80,6 +81,7 @@ export default defineComponent(
 
         return {
             selectedFile,
+            imagesOnly,
             setFile,
         };
     },

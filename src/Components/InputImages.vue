@@ -29,7 +29,7 @@
                 :multiple="true"
                 @files-selected="e => addFiles(e.files)">
                 <template #content>
-                    <slot name="content">Ajouter des images…</slot>
+                    <slot name="content">{{ accept === 'image/*' ? 'Ajouter des images…' : 'Ajouter des fichiers…' }}</slot>
                 </template>
             </input-file>
         </div>

@@ -40,10 +40,11 @@ export default defineComponent(
             type: Boolean,
             default: false,
         },
+        // Chaîne vide : tous les types de fichiers sont acceptés
         accept: {
             type: String,
             required: false,
-            default: '*',
+            default: '',
         },
         // Choisir un fichier accompagne le formulaire : bouton secondaire par défaut
         buttonClasses: {
