@@ -26,7 +26,7 @@
                     </svg>
                 </button>
 
-                <div class="flex-grow text-center text-sm font-bold text-slate-900 dark:text-white">
+                <div class="grow text-center text-sm font-bold text-slate-900 dark:text-white">
                     {{ item.year }}
                 </div>
 

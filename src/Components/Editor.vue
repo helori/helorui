@@ -18,7 +18,7 @@
             </button>
         </div-->
 
-        <div ref="container" class="flex-grow">
+        <div ref="container" class="grow">
             <textarea ref="editorElt"></textarea>
         </div>
 

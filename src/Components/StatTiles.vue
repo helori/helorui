@@ -1,6 +1,6 @@
 <template>
     <!-- Les filets entre tuiles sont le fond de la grille, visible dans l'écart d'un pixel -->
-    <div class="-mx-4 sm:mx-0 grid gap-px sm:rounded-xl border-y sm:border border-slate-200 dark:border-slate-700 bg-slate-200 dark:bg-slate-700 shadow-sm overflow-hidden"
+    <div class="-mx-4 sm:mx-0 grid gap-px sm:rounded-xl border-y sm:border border-slate-200 dark:border-slate-700 bg-slate-200 dark:bg-slate-700 shadow-xs overflow-hidden"
         :class="columnsClass">
         <div class="px-4 sm:px-5 py-4 bg-white dark:bg-slate-900"
             v-for="item in items"

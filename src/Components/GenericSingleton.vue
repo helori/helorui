@@ -2,7 +2,7 @@
     <!-- Formulaire long (éditeurs de texte) : une page, et une barre d'enregistrement collée en bas -->
     <div class="min-h-full flex flex-col">
 
-        <div class="flex-grow px-4 py-6 sm:p-8">
+        <div class="grow px-4 py-6 sm:p-8">
             <app-page :title="title">
 
                 <template #description v-if="description">
@@ -24,7 +24,7 @@
             </app-page>
         </div>
 
-        <div class="sticky bottom-0 z-10 px-4 sm:px-8 py-3 border-t border-slate-200 bg-white/90 backdrop-blur dark:border-slate-700 dark:bg-slate-900/90">
+        <div class="sticky bottom-0 z-10 px-4 sm:px-8 py-3 border-t border-slate-200 bg-white/90 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/90">
             <div class="max-w-3xl flex flex-wrap items-center justify-end gap-3">
                 <request-error class="mr-auto" :error="updateError" />
                 <span class="text-sm font-medium text-amber-700 dark:text-amber-400"

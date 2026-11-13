@@ -11,7 +11,7 @@
             <path class="opacity-90" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M12 2.5a9.5 9.5 0 0 1 9.5 9.5" />
         </svg>
 
-        <div class="min-w-0 flex-grow" v-if="message">
+        <div class="min-w-0 grow" v-if="message">
             <span :class="messageClasses">{{ message }}</span>
         </div>
 

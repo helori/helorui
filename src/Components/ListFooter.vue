@@ -10,7 +10,7 @@
             {{ $t('of') }} {{ pagination.meta.total }}
         </div>
 
-        <div class="flex-grow"></div>
+        <div class="grow"></div>
 
         <list-pagination
             v-if="pagination !== null"

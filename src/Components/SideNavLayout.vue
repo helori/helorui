@@ -58,7 +58,7 @@
         <div class="absolute inset-y-0 right-0"
             :class="menuOpened ? 'hidden lg:block lg:left-64' : 'left-0'">
 
-            <div class="absolute top-0 inset-x-0 z-10 h-12 px-4 flex items-center gap-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-700"
+            <div class="absolute top-0 inset-x-0 z-10 h-12 px-4 flex items-center gap-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700"
                 v-if="!menuOpened">
                 <button type="button"
                     class="side-nav-toggle"
@@ -128,7 +128,7 @@ export default defineComponent({
 
         function isMobile()
         {
-            const lg = parseInt(window.tailwindcss?.theme?.screens?.lg ?? '1024px');
+            const lg = 1024 /* lg de Tailwind (64rem) */;
             return window.innerWidth <= lg;
         }
 

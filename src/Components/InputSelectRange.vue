@@ -1,11 +1,11 @@
 <template>
 
-    <div class="text-sm flex w-full font-medium rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-sm overflow-hidden focus-within:border-primary-400 focus-within:ring focus-within:ring-primary-200 focus-within:ring-opacity-50 dark:focus-within:border-primary-500 dark:focus-within:ring-primary-900">
+    <div class="text-sm flex w-full font-medium rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-xs overflow-hidden focus-within:border-primary-400 focus-within:ring-3 focus-within:ring-primary-200 focus-within:ring-opacity-50 dark:focus-within:border-primary-500 dark:focus-within:ring-primary-900">
         <div class="whitespace-nowrap pl-2 py-2 z-0 text-slate-500 dark:text-slate-400">
             {{ minLabel }} :
         </div>
         <select
-            class="text-sm input border-none text-center flex-grow w-10 px-2 font-bold rounded-none shadow-none z-10 focus:ring-0 text-slate-900 dark:text-white placeholder:font-medium"
+            class="text-sm input border-none text-center grow w-10 px-2 font-bold rounded-none shadow-none z-10 focus:ring-0 text-slate-900 dark:text-white placeholder:font-medium"
             v-model.number="item.min"
             @change="update">
             <option v-for="option in options"
@@ -20,7 +20,7 @@
             {{ maxLabel }} :
         </div>
         <select
-            class="text-sm input border-none text-center flex-grow w-10 px-2 font-bold rounded-none shadow-none z-10 focus:ring-0 text-slate-900 dark:text-white placeholder:font-medium"
+            class="text-sm input border-none text-center grow w-10 px-2 font-bold rounded-none shadow-none z-10 focus:ring-0 text-slate-900 dark:text-white placeholder:font-medium"
             v-model.number="item.max"
             @change="update">
             <option v-for="option in options"

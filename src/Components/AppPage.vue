@@ -2,14 +2,15 @@
     <div class="space-y-6"
         :class="full ? 'max-w-none' : (wide ? 'max-w-6xl' : 'max-w-3xl')">
 
-        <!-- Lien de retour vers la liste (fiches de l'admin) -->
-        <div class="-mb-3 text-sm"
+        <!-- Lien de retour vers la liste (fiches de l'admin). Tailwind 4 : space-y pose une marge
+             basse sur chaque enfant ; mb-3 la remplace (au lieu de -mb-3 en Tailwind 3) -->
+        <div class="mb-3! text-sm"
             v-if="$slots.back">
             <slot name="back"></slot>
         </div>
 
         <header class="flex flex-col sm:flex-row sm:items-end gap-4">
-            <div class="flex-grow min-w-0 flex items-center gap-4">
+            <div class="grow min-w-0 flex items-center gap-4">
                 <!-- Logo, avatar -->
                 <div class="shrink-0"
                     v-if="$slots.leading">

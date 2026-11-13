@@ -10,7 +10,7 @@
             role="tab"
             :aria-selected="item === t.value"
             :class="[
-                variant === 'plain' ? 'py-2 flex-grow font-bold rounded-t-md' : '-mb-px py-2 border-b-2 whitespace-nowrap transition-colors',
+                variant === 'plain' ? 'py-2 grow font-bold rounded-t-md' : '-mb-px py-2 border-b-2 whitespace-nowrap transition-colors',
                 (item === t.value) ? currentActiveClass : currentInactiveClass,
             ]"
             @click="setTab(t.value)">

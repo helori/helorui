@@ -1,5 +1,5 @@
 <template>
-    <section class="-mx-4 sm:mx-0 sm:rounded-xl border-y sm:border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+    <section class="-mx-4 sm:mx-0 sm:rounded-xl border-y sm:border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-xs overflow-hidden">
 
         <div class="px-4 sm:px-6 pt-5 flex flex-wrap items-start justify-between gap-3"
             v-if="title || $slots.description || $slots.actions">

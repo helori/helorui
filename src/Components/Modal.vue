@@ -10,7 +10,7 @@
                         leave-to-class="opacity-0">
                     <div
                         v-show="show"
-                        class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity">
+                        class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity">
                     </div>
                 </transition>
 

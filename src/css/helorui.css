@@ -1,15 +1,18 @@
 /* ------------------------------------------------------------------
-   helorui — classes communes aux composants et aux applications
+   helorui 2 — classes communes aux composants et aux applications (Tailwind 4)
 
-   À importer dans la feuille Tailwind du projet, avant les directives :
+   À importer dans la feuille Tailwind du projet, après Tailwind :
+       @import 'tailwindcss';
        @import 'helorui/src/css/helorui.css';
-       @tailwind base;
-       @tailwind components;
-       @tailwind utilities;
 
-   Le projet doit déclarer dans tailwind.config.js les couleurs primary,
-   slate, red, amber, emerald et blue, et lister les fichiers .vue de
-   node_modules/helorui dans `content` (voir le README).
+   Cette feuille déclare elle-même les composants de la bibliothèque comme
+   source (@source ci-dessous) : plus de `content` à configurer.
+
+   Le projet déclare sa couleur `primary` (50 à 950) dans son @theme ;
+   slate, red, amber, emerald et blue viennent de la palette de Tailwind.
+   Mode sombre par classe : le projet déclare
+       @custom-variant dark (&:where(.dark, .dark *));
+   sinon les variantes dark: suivent le réglage du système.
 
    Rôles des couleurs : primary pour l'action et la mise en avant, slate pour
    les neutres, emerald / amber / red pour succès / alerte / danger (jamais
@@ -19,16 +22,36 @@
    Tailwind écrit à l'usage passe devant.
    ------------------------------------------------------------------ */
 
+@source "../Components";
+@source "../Functions";
+
 @layer components{
+
+    /* ----------------------------------------
+       Pagination (ListPagination) : déclarée ici, un <style> de
+       composant ne voit pas le thème du projet avec Tailwind 4
+       ---------------------------------------- */
+    .pagination-link{
+        @apply inline-flex items-center justify-center min-w-[2.25rem] h-9 px-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 tabular-nums transition-colors;
+    }
+    .pagination-link:not(.disabled):not(.active){
+        @apply cursor-pointer hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white;
+    }
+    .pagination-link.disabled{
+        @apply text-slate-300 dark:text-slate-600;
+    }
+    .pagination-link.active{
+        @apply bg-primary-600 text-white dark:bg-primary-500;
+    }
 
     /* ----------------------------------------
        Boutons
        ---------------------------------------- */
     .btn{
-        @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold border border-transparent rounded-lg shadow-sm text-center transition-colors cursor-pointer;
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-bold border border-transparent rounded-lg shadow-xs text-center transition-colors cursor-pointer;
     }
     .btn:focus{
-        @apply outline-none;
+        @apply outline-hidden;
     }
     .btn:focus-visible{
         @apply ring-2 ring-offset-1 ring-primary-300 dark:ring-primary-700 dark:ring-offset-slate-900;
@@ -75,7 +98,7 @@
     .btn-icon{
         @apply inline-flex items-center justify-center p-2 rounded-lg text-slate-400 dark:text-slate-500
                hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white
-               focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 transition-colors;
+               focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-300 transition-colors;
     }
     .btn-icon svg{
         @apply w-5 h-5;
@@ -88,12 +111,12 @@
        Champs de formulaire
        ---------------------------------------- */
     .input{
-        @apply font-medium px-3 py-2 border border-slate-300 rounded-lg shadow-sm bg-white text-slate-900
+        @apply font-medium px-3 py-2 border border-slate-300 rounded-lg shadow-xs bg-white text-slate-900
                dark:border-slate-600 dark:bg-slate-800 dark:text-white
                placeholder:text-slate-400 dark:placeholder:text-slate-500;
     }
     .input:focus{
-        @apply outline-none border-primary-500 ring-2 ring-primary-200 dark:border-primary-400 dark:ring-primary-900;
+        @apply outline-hidden border-primary-500 ring-2 ring-primary-200 dark:border-primary-400 dark:ring-primary-900;
     }
     .input:disabled{
         @apply bg-slate-50 text-slate-500 cursor-not-allowed dark:bg-slate-900 dark:text-slate-400;
@@ -164,7 +187,7 @@
     }
     .dropdown-link:hover,
     .dropdown-link:focus-visible{
-        @apply outline-none bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-white;
+        @apply outline-hidden bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-white;
     }
     .dropdown-link.dropdown-link-active{
         @apply font-bold bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300;
@@ -223,7 +246,7 @@
        ------------------------------------------------------------------ */
     .table-wrapper{
         @apply -mx-4 sm:mx-0 bg-white dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-200
-               border-y sm:border border-slate-200 dark:border-slate-700 sm:rounded-xl shadow-sm overflow-x-auto;
+               border-y sm:border border-slate-200 dark:border-slate-700 sm:rounded-xl shadow-xs overflow-x-auto;
     }
     .table-wrapper table{
         @apply w-full;
@@ -233,12 +256,12 @@
         z-index: 1;
         position: sticky;
         top: 0;
-        box-shadow: inset 0 -1px 0 theme('colors.slate.200');
+        box-shadow: inset 0 -1px 0 var(--color-slate-200);
         @apply whitespace-nowrap text-left bg-slate-50 dark:bg-slate-800 px-4 py-2.5
                text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400;
     }
     .dark .table-wrapper table th{
-        box-shadow: inset 0 -1px 0 theme('colors.slate.700');
+        box-shadow: inset 0 -1px 0 var(--color-slate-700);
     }
     /* Lignes de regroupement dans le corps */
     .table-wrapper tbody th{

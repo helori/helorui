@@ -1,18 +1,3 @@
-<style scoped>
-.pagination-link{
-    @apply inline-flex items-center justify-center min-w-[2.25rem] h-9 px-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 tabular-nums transition-colors;
-}
-.pagination-link:not(.disabled):not(.active){
-    @apply cursor-pointer hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white;
-}
-.pagination-link.disabled{
-    @apply text-slate-300 dark:text-slate-600;
-}
-.pagination-link.active{
-    @apply bg-primary-600 text-white dark:bg-primary-500;
-}
-</style>
-
 <template>
     <nav aria-label="Page navigation"
         class="my-0"

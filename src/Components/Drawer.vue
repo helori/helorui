@@ -6,7 +6,7 @@
         enter-from-class="opacity-0"
         leave-active-class="transition-opacity ease-in duration-150"
         leave-to-class="opacity-0">
-        <div v-if="opened" class="fixed z-40 inset-0 bg-slate-900/50 backdrop-blur-sm" @click="close"></div>
+        <div v-if="opened" class="fixed z-40 inset-0 bg-slate-900/50 backdrop-blur-xs" @click="close"></div>
     </transition>
 
     <div class="fixed z-50 inset-y-0 w-full lg:w-4/5 flex flex-col transition-all duration-200 bg-white shadow-xl dark:bg-slate-900"
@@ -32,7 +32,7 @@
             <slot name="header"></slot>
         </div>
 
-        <div v-if="hasSlot('content')" class="flex-grow overflow-y-auto" :class="[contentClasses, { 'pr-12': hasClose && !hasSlot('header') }]">
+        <div v-if="hasSlot('content')" class="grow overflow-y-auto" :class="[contentClasses, { 'pr-12': hasClose && !hasSlot('header') }]">
             <slot name="content"></slot>
         </div>
 

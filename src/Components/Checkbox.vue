@@ -1,5 +1,5 @@
 <template>
-    <span class="shrink-0 size-4 rounded border flex items-center justify-center transition-colors"
+    <span class="shrink-0 size-4 rounded-sm border flex items-center justify-center transition-colors"
         :class="checked
             ? 'bg-primary-600 border-primary-600 text-white dark:bg-primary-400 dark:border-primary-400 dark:text-slate-900'
             : 'bg-white border-slate-300 dark:bg-slate-800 dark:border-slate-600'"

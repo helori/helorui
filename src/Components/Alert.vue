@@ -3,7 +3,7 @@
         <svg v-if="iconPath" class="w-[1.25em] h-[1.25em] shrink-0 mt-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" :d="iconPath" clip-rule="evenodd" />
         </svg>
-        <div class="min-w-0 flex-grow">
+        <div class="min-w-0 grow">
             <slot></slot>
         </div>
     </div>

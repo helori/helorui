@@ -10,7 +10,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" :d="typeIcon.path" />
                 </svg>
             </div>
-            <div class="flex-grow min-w-0 text-lg font-bold text-slate-900 dark:text-white">
+            <div class="grow min-w-0 text-lg font-bold text-slate-900 dark:text-white">
                 <slot name="title"></slot>
             </div>
             <button type="button"

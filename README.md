@@ -4,21 +4,45 @@ Vue3 components library
 
 ## Installation
 
-Les composants s'appuient sur Tailwind CSS 3 et sur une feuille de classes communes
-(boutons, champs, étiquettes, tableaux, menus). Dans la feuille Tailwind du projet :
+Version 2 : **Tailwind CSS 4**. La version 1.x reste celle des projets en Tailwind 3.
+
+Les composants s'appuient sur une feuille de classes communes (boutons, champs,
+étiquettes, tableaux, menus). Dans la feuille Tailwind du projet :
 
 ```css
+@import 'tailwindcss';
 @import 'helorui/src/css/helorui.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Mode sombre par classe (sinon dark: suit le réglage du système) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-primary-50: …;   /* jusqu'à --color-primary-950 */
+}
 ```
 
-Dans `tailwind.config.js` :
+- La feuille déclare elle-même les composants comme source Tailwind (`@source`) :
+  pas de `content` à configurer.
+- Seule `primary` est à déclarer ; `slate`, `red`, `amber`, `emerald` et `blue`
+  viennent de la palette de Tailwind. Un projet aux neutres chauds peut
+  redéfinir `--color-slate-*` dans son `@theme`.
 
-- `content` doit lister `'./node_modules/helorui/**/*.vue'` ;
-- `theme.colors` doit déclarer `primary`, `slate`, `red`, `amber`, `emerald` et `blue`.
+### Passer de la version 1 à la version 2
+
+- Les classes des composants suivent les noms de Tailwind 4 (`shadow-xs`,
+  `rounded-sm`, `outline-hidden`, `grow`…) ; l'API des composants ne change pas.
+- Dans le projet : `tailwind.config.js` remplacé par `@theme` et `@source`,
+  et la ligne `@custom-variant dark` pour garder le mode sombre par classe.
+- `window.tailwindcss` n'existe plus : `ListHeader` et `SideNavLayout` testent
+  les points de rupture `md` (48rem) et `lg` (64rem) en dur.
+- Aucun composant n'a plus de `<style>` avec `@apply` (il ne verrait pas le
+  `@theme` du projet) : la pagination est dans `helorui.css`.
+- `space-y-*` pose maintenant une marge **basse** sur chaque enfant : une marge
+  négative sur un enfant (ex. `-mb-3`) la remplace au lieu de la réduire.
+- Les composants importent `luxon`, `numeral`, `vue-i18n`, `flatpickr` pour
+  certains d'entre eux : un projet qui ne les installe pas importe les
+  composants un par un (`helorui/src/Components/AppPage.vue`) plutôt que
+  l'index, et fournit `$t` s'il n'a pas vue-i18n.
 
 Enregistrement global des composants :
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex flex-col md:flex-row md:items-center md:flex-wrap gap-2">
-            <div class="flex-grow"
+            <div class="grow"
                 v-if="title || slots.title"
                 @click="toggleFilters">
                 <div class="text-base md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-1 cursor-pointer md:cursor-default">
@@ -13,13 +13,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
                     </div>
-                    <div class="flex-grow">
+                    <div class="grow">
                         <slot name="title">{{ title }}</slot>
                     </div>
                 </div>
             </div>
             <template v-if="filtersOpened">
-                <div class="relative flex-grow w-full md:w-auto"
+                <div class="relative grow w-full md:w-auto"
                     v-if="hasSearch">
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
@@ -84,7 +84,8 @@
                 }, props.debounceMs);
             }
 
-            const filtersOpened = ref(!isMobile());
+            // Sans titre, rien ne permet de déplier les filtres : ils restent visibles
+            const filtersOpened = ref(!isMobile() || !(props.title || slots.title));
 
             function toggleFilters()
             {
@@ -95,9 +96,8 @@
 
             function isMobile()
             {
-                let mobileWidth = parseInt(window.tailwindcss.theme.screens.md);
-                let windowWidth =  window.innerWidth;
-                return (windowWidth <= mobileWidth)
+                // Tailwind 4 n'expose plus sa configuration : point de rupture md (48rem)
+                return window.matchMedia('(width < 48rem)').matches;
             }
 
             return {

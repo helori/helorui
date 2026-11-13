@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="min-w-0 flex-grow flex flex-col gap-1 items-start text-sm">
+        <div class="min-w-0 grow flex flex-col gap-1 items-start text-sm">
 
             <div class="text-slate-500 dark:text-slate-400">
                 <template v-if="isImage">{{ image.width }} × {{ image.height }} px · </template>{{ $filters.octets(image.size) }} · {{ image.mime }}

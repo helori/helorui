@@ -11,7 +11,7 @@
             <button type="button"
                 class="input text-sm flex items-center gap-2 text-left cursor-pointer"
                 :class="inputClasses">
-                <span class="flex-grow min-w-0 truncate"
+                <span class="grow min-w-0 truncate"
                     :class="{ 'text-slate-500 dark:text-slate-400': item.length === 0 }">
                     <template v-if="item.length > 0">
                         {{ selectedLabels.join(', ') }}

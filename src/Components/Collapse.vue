@@ -54,7 +54,7 @@
             },
             headerClasses: {
                 required: false,
-                default: 'px-4 py-2.5 flex items-center gap-2 cursor-pointer select-none bg-slate-50 hover:bg-slate-100 text-sm font-bold text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-300 dark:bg-slate-800/50 dark:hover:bg-slate-800 dark:text-white dark:focus-visible:ring-primary-700',
+                default: 'px-4 py-2.5 flex items-center gap-2 cursor-pointer select-none bg-slate-50 hover:bg-slate-100 text-sm font-bold text-slate-900 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-300 dark:bg-slate-800/50 dark:hover:bg-slate-800 dark:text-white dark:focus-visible:ring-primary-700',
             },
             contentClasses: {
                 required: false,

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-stretch w-full rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-sm">
+    <div class="flex items-stretch w-full rounded-md border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-700 shadow-xs">
         <div v-if="prefix"
             class="flex items-center whitespace-nowrap pl-3 rounded-l-md text-slate-500 dark:text-slate-400"
             :class="prefixClasses">
